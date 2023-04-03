@@ -1,8 +1,8 @@
-# [GH pages]
+# GH pages
 
-[docs](palcsta/github.io)
+[GitHub url](https://palcsta.github.io)
 
 ## Continents FullStack project
 
 
-[docs](palcsta/github.io/continents)
+[GitHub url](https://palcsta.github.io/continents)
