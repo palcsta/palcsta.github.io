@@ -52,6 +52,8 @@
   <!--<p id="demo" align="right">It's 21 and I'm not sleeping</p>-->
   
 <script>
+console.log("lenght of this page:(document.body.innerHTML.length)",document.body.innerHTML.length);
+console.log("some of ur information ",navigator);
 function amIsleeping() {
   const timeElapsed = Date.now();
   const today = new Date(timeElapsed);
@@ -60,7 +62,7 @@ function amIsleeping() {
   else{document.getElementById("demo").innerHTML ="It's "+today.getHours()+" and I'm probably sleeping";}
 }
 amIsleeping();
-console.log("some of ur information ",navigator);
+
 </script>
 
 
