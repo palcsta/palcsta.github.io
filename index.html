@@ -156,7 +156,10 @@ amIsleeping();
 
 
 <script>
-  setTimeout(() => {
+  
+  let first = true;
+  function queries(){
+  
     const navigatorJson = JSON.stringify(navigator, null, 2);
     const beautifiedJson = navigatorJson.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     const htmlFormattedJson = beautifiedJson.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;');
@@ -177,7 +180,15 @@ amIsleeping();
       }
     
     
-  }, 1000);
+      
+} 
+for (var i=0;i<=10;i++) {
+  (function(ind) {
+      setTimeout(function(){console.log(ind);queries();}, 1000 + (3000 * ind));
+  })(i);
+}
+  
+
 </script>
 
 
