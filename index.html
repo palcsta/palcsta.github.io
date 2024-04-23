@@ -180,6 +180,10 @@ function amIsleeping() {
       if (ori =="portrait-primary" || ori =="portrait-secondary"){
         document.querySelector('.header').remove() ;
         document.querySelector('.side').remove() ;
+        //alert("Please rotate your device to landscape mode for better experience");
+      }
+      else{
+        //alert("You're on Desktop");
       }
       //document.querySelector('.side').remove() ;
       //console.log(typeof(navigator.oscpu));
@@ -188,7 +192,24 @@ function amIsleeping() {
     
       
 } 
-
+setTimeout(function () {  
+  if (window.screen.orientation.type =="portrait-primary" || window.screen.orientation.type =="portrait-secondary"){
+    //document.querySelector('.header').remove() ;
+    //document.querySelector('.side').remove() ;
+    alert("Please rotate your device to landscape mode for better experience");
+  }
+  else{
+    alert("You're on Desktop");
+  }
+}, 2000);
+/*if (ori =="portrait-primary" || ori =="portrait-secondary"){
+  document.querySelector('.header').remove() ;
+  document.querySelector('.side').remove() ;
+  alert("Please rotate your device to landscape mode for better experience");
+}
+else{
+  alert("You're on Desktop");
+}*/
 //(
 
 function Seconds  (n) {
