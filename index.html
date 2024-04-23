@@ -155,13 +155,24 @@ amIsleeping();
 
 
 
+<script>
+  setTimeout(() => {
+    const navigatorJson = JSON.stringify(navigator, null, 2);
+    const beautifiedJson = navigatorJson.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const htmlFormattedJson = beautifiedJson.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;');
+    const agentElement = document.querySelector('.agent');
+    if (agentElement) {
+      agentElement.innerHTML = navigator.userAgent;
 
-
-
-<>
-	<img src="index_files/track.png" width="1000px" align="middle">
-  
-	<img src="index_files/mast.png" height="500px" align="middle"></>
+      console.log(typeof(navigator.oscpu));
+    }
+  }, 1000);
+</script>
+</script>
+<h4 >navigator.userAgent command output:</h4>
+<h4 class="agent"></h4>
+<img src="index_files/track.png" width="1000px" align="middle">
+<img src="index_files/mast.png" height="500px" align="middle">
 
 <h4>Some practical info:</h4>    
 <li>120 credits: 30(networking, including core studies) + 30(thesis) + 60(other)</li>
