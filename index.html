@@ -177,6 +177,11 @@ amIsleeping();
       agentElement.innerHTML = navigator.userAgent;
       mobileElement.innerHTML = mobileOrTab ? 'You\'re on Mobile or Tablet' : 'You\'re on Desktop';
       screenElement.innerHTML = ori;
+      if (ori =="portrait-primary" || ori =="portrait-secondary"){
+        document.querySelector('.header').remove() ;
+        document.querySelector('.side').remove() ;
+      }
+      //document.querySelector('.side').remove() ;
       //console.log(typeof(navigator.oscpu));
       }
     
@@ -185,6 +190,7 @@ amIsleeping();
 } 
 
 //(
+
 function Seconds  (n) {
   if (n == 0) setTimeout(function () {  
     Seconds ( n ); // Redo if n < 5 (and pass n)
