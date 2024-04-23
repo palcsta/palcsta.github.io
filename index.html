@@ -176,17 +176,27 @@ amIsleeping();
       agentElement.innerHTML = navigator.userAgent;
       mobileElement.innerHTML = mobileOrTab ? 'You\'re on Mobile or Tablet' : 'You\'re on Desktop';
       screenElement.innerHTML = ori;
-      console.log(typeof(navigator.oscpu));
+      //console.log(typeof(navigator.oscpu));
       }
     
     
       
 } 
-for (var i=0;i<=10;i++) {
+/*for (var i=0;i<=10;i++) {
   (function(ind) {
       setTimeout(function(){console.log(ind);queries();}, 1000 + (3000 * ind));
   })(i);
-}
+}*/
+(function fiveSeconds  (n) {
+
+  if (n < 500000000000000) setTimeout(function () {  
+    fiveSeconds ( n ); // Redo if n < 5 (and pass n)
+  }, 3000);
+  
+  console.log( n =n+3 ,'seconds passed');
+  queries();
+
+} (0)); // Initialize. n is 0
   
 
 </script>
