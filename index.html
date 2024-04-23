@@ -162,7 +162,9 @@ amIsleeping();
     const htmlFormattedJson = beautifiedJson.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;');
     const agentElement = document.querySelector('.agent');
     const mobileElement = document.querySelector('.mobile');
+    const screenElement = document.querySelector('.screen');
     let mobileOrTab = false;
+    let ori = window.screen.orientation.type;
     if(navigator.userAgent.toLowerCase().includes("android") || 
       navigator.userAgent.toLowerCase().includes("ios")){
       mobileOrTab = true;
@@ -170,9 +172,9 @@ amIsleeping();
     if (agentElement) {
       agentElement.innerHTML = navigator.userAgent;
       mobileElement.innerHTML = mobileOrTab ? 'You\'re on Mobile or Tablet' : 'You\'re on Desktop';
+      screenElement.innerHTML = ori;
       console.log(typeof(navigator.oscpu));
-      //mobileOrTab
-    }
+      }
     
     
   }, 1000);
@@ -182,6 +184,8 @@ amIsleeping();
 <h4 class="mobile"></h4>
 <h4 >navigator.userAgent command output:</h4>
 <h4 class="agent"></h4>
+<h4 >screen orientation (cmd: window.screen.orientation.type):</h4>
+<h4 class="screen"></h4>
 <img src="index_files/track.png" width="1000px" align="middle">
 <img src="index_files/mast.png" height="500px" align="middle">
 
