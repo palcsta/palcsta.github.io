@@ -183,25 +183,26 @@ amIsleeping();
     
       
 } 
-/*for (var i=0;i<=10;i++) {
-  (function(ind) {
-      setTimeout(function(){console.log(ind);queries();}, 1000 + (3000 * ind));
-  })(i);
-}*/
-(function Seconds  (n) {
 
-  if (n ==0) setTimeout(function () {  
+//(
+function Seconds  (n) {
+  if (n == 0) setTimeout(function () {  
     Seconds ( n ); // Redo if n < 5 (and pass n)
+    queries();
+    
   }, 300);
 
-  if (n < 500000000000000) setTimeout(function () {  
+  else if (n < 500000000000000) setTimeout(function () {  
     Seconds ( n ); // Redo if n < 5 (and pass n)
+    queries();
+    
   }, 3000);
   
   console.log( n =n+3 ,'seconds passed');
-  queries();
+  
 
-} (0)); // Initialize. n is 0
+} //(0)); // Initialize. n is 0
+Seconds(0);
   
 
 </script>
