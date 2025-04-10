@@ -4,7 +4,127 @@
 <title>CS Student's Web Page</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="index_files/mystyles.css" media="screen"></head>
+<link rel="stylesheet" type="text/css" href="index_files/mystyles.css" media="screen">
+<style>
+  /* Dark Mode Styles */
+  body.dark-mode {
+    background-color: #1a1a1a; /* Dark background */
+    color: #e0e0e0; /* Lighter text */
+  }
+  body.dark-mode .header,
+  body.dark-mode .navbar,
+  body.dark-mode .footer {
+    background-color: #2c2c2c; /* Darker header/footer */
+    color: #e0e0e0;
+  }
+  body.dark-mode .navbar a {
+    color: #bbdefb; /* Lighter blue links */
+  }
+   body.dark-mode .navbar a:hover {
+    background-color: #424242; /* Darker hover */
+    color: white;
+  }
+  body.dark-mode .side,
+  body.dark-mode .main {
+    background-color: #212121; /* Darker side/main */
+  }
+  body.dark-mode .profile-section,
+  body.dark-mode .university-section,
+  body.dark-mode .side h2,
+  body.dark-mode .main h2,
+  body.dark-mode .main h4,
+  body.dark-mode .main li,
+  body.dark-mode .side h3,
+  body.dark-mode .side p,
+  body.dark-mode .interests-list .interest-item {
+     color: #e0e0e0;
+  }
+  body.dark-mode .interests-list .interest-item {
+    background-color: #333; /* Darker interest items */
+    border-left: 5px solid #bbdefb;
+  }
+    body.dark-mode .fakeimg {
+        background-color: #424242; /* Darker fake images */
+        color: #bdbdbd;
+    }
+  body.dark-mode .degree-text {
+    color: #bdbdbd;
+  }
+  body.dark-mode .profile-image img {
+      border: 3px solid #424242; /* Darker border */
+  }
+  body.dark-mode .dark-mode-toggle {
+      background-color: #555;
+      color: #fff;
+  }
+   body.dark-mode .dark-mode-toggle:hover {
+       background-color: #777;
+   }
+
+  /* Hide all images in dark mode by default */
+  body.dark-mode img {
+      display: none;
+  }
+
+  /* Specifically make the profile image visible in dark mode */
+  body.dark-mode .profile-image img {
+       display: inline-block; /* Or block, depending on desired layout */
+       border: 3px solid #424242; /* Keep the dark mode border */
+  }
+
+  /* Also make the hit counter image visible in dark mode */
+  body.dark-mode .header img[src*="counter.digits.net"] {
+      display: inline; /* It's likely an inline element */
+  }
+
+  /* Toggle Button Style */
+  .dark-mode-toggle {
+      padding: 5px 10px;
+      margin-left: 15px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background-color: #f1f1f1;
+      color: #333;
+      font-size: 0.9em;
+      transition: background-color 0.3s ease;
+  }
+  .dark-mode-toggle:hover {
+      background-color: #ddd;
+  }
+
+  /* General cool enhancements */
+  .profile-section {
+    text-align: center; /* Center content within profile section */
+  }
+  .profile-image {
+    margin-bottom: 10px; /* Add some space below the image */
+    /* text-align: center; */ /* This centers the image if it's inline/inline-block */
+    /* display: inline-block; /* Ensure the div behaves well with text-align */
+
+  }
+  .profile-image img {
+      border-radius: 50%; /* Make profile image circular */
+      border: 3px solid #ddd;
+      transition: transform 0.3s ease;
+  }
+  .profile-image img:hover {
+       transform: scale(1.05); /* Slightly enlarge on hover */
+  }
+  .interests-list .interest-item {
+      transition: background-color 0.3s ease, border-left-color 0.3s ease;
+      margin-bottom: 8px; /* Add a bit more space */
+      padding: 8px 12px; /* Adjust padding */
+      border-left: 5px solid #2196F3;
+      background-color: #e3f2fd;
+  }
+   .interests-list .interest-item:hover {
+      background-color: #bbdefb;
+      border-left-color: #1976D2;
+   }
+
+</style>
+</head>
 
 
 <body>
@@ -50,6 +170,7 @@
   <a href="iot.html">💡  IoT </a>
   <a href="https://courses.mooc.fi/org/uh-veterinary-biosciences/courses/mina-ja-kissani/chapter-3/kissan-persoonallisuus">🐱</a>
 
+  <button id="darkModeToggle" class="dark-mode-toggle">🌙 Dark Mode</button>
 
   <a hidden href="https://6g.mooc.fi">📱  2-6g </a>
   <a href="https://european-alternatives.eu/">🇪🇺</a>
@@ -294,7 +415,24 @@ console.log("printing import: "+extern)*/
   <h4>2024</h4>
 </div>
 
+<script>
+document.getElementById("darkModeToggle").addEventListener("click", function() {
+  if (localStorage.getItem('darkMode') === 'disabled') {
+    document.body.classList.add('dark-mode');
+    localStorage.setItem('darkMode', 'enabled');
+    document.getElementById("darkModeToggle").innerHTML = "☀️ Light Mode";
+  } else {
+    document.body.classList.remove('dark-mode');
+    localStorage.setItem('darkMode', 'disabled');
+    document.getElementById("darkModeToggle").innerHTML = "🌙 Dark Mode";
+  }
+});
 
-
+// Apply the stored theme on page load
+if (localStorage.getItem('darkMode') === 'enabled') {
+  document.body.classList.add('dark-mode');
+  document.getElementById("darkModeToggle").innerHTML = "☀️ Light Mode";
+}
+</script>
 
 </body></html>
