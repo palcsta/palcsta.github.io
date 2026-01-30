@@ -1,6 +1,6 @@
 # GH pages
 
-[GitHub url](https://palcsta.github.io)
+[My github.io url](https://palcsta.github.io)
 
 TODOS:
 * Done: code snippets with context highlighting (using Prism.js)
@@ -12,4 +12,4 @@ TODOS:
 ## Continents FullStack project
 
 
-[GitHub url](https://palcsta.github.io/continents)
+[sub-github.io url](https://palcsta.github.io/continents)
