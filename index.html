@@ -5,137 +5,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="index_files/mystyles.css" media="screen">
-<style>
-  /* Dark Mode Styles */
-  body.dark-mode {
-    background-color: #1a1a1a; /* Dark background */
-    color: #e0e0e0; /* Lighter text */
-  }
-  body.dark-mode .header,
-  body.dark-mode .navbar,
-  body.dark-mode .footer {
-    background-color: #2c2c2c; /* Darker header/footer */
-    color: #e0e0e0;
-  }
-  body.dark-mode .navbar a {
-    color: #bbdefb; /* Lighter blue links */
-  }
-   body.dark-mode .navbar a:hover {
-    background-color: #424242; /* Darker hover */
-    color: white;
-  }
-  body.dark-mode .side,
-  body.dark-mode .main {
-    background-color: #212121; /* Darker side/main */
-  }
-  body.dark-mode .profile-section,
-  body.dark-mode .university-section,
-  body.dark-mode .side h2,
-  body.dark-mode .main h2,
-  body.dark-mode .main h4,
-  body.dark-mode .main li,
-  body.dark-mode .side h3,
-  body.dark-mode .side p,
-  body.dark-mode .interests-list .interest-item {
-     color: #e0e0e0;
-  }
-  body.dark-mode .interests-list .interest-item {
-    background-color: #333; /* Darker interest items */
-    border-left: 5px solid #bbdefb;
-  }
-    body.dark-mode .fakeimg {
-        background-color: #424242; /* Darker fake images */
-        color: #bdbdbd;
-    }
-  body.dark-mode .degree-text {
-    color: #bdbdbd;
-  }
-  body.dark-mode .profile-image img {
-      border: 3px solid #424242; /* Darker border */
-  }
-  body.dark-mode .dark-mode-toggle {
-      background-color: #555;
-      color: #fff;
-  }
-   body.dark-mode .dark-mode-toggle:hover {
-       background-color: #777;
-   }
-
-  /* Hide all images in dark mode by default */
-  body.dark-mode img {
-      display: none;
-  }
-
-  /* Specifically make the profile image visible in dark mode */
-  body.dark-mode .profile-image img {
-       display: inline-block; /* Or block, depending on desired layout */
-       border: 3px solid #424242; /* Keep the dark mode border */
-  }
-
-  /* Also make the hit counter image visible in dark mode */
-  body.dark-mode .header img[src*="counter.digits.net"] {
-      display: inline; /* It's likely an inline element */
-  }
-
-  /* Full Stack Project link dark mode */
-  body.dark-mode .fso-project-link {
-      background-color: #333; /* Darker background */
-      color: #bbdefb; /* Lighter blue text */
-      border-left-color: #bbdefb; /* Lighter blue border */
-  }
-  
-  body.dark-mode .fso-project-link:hover {
-      background-color: #424242; /* Darker hover background */
-      border-left-color: #90caf9; /* Even lighter blue on hover */
-  }
-
-  /* Toggle Button Style */
-  .dark-mode-toggle {
-      padding: 5px 10px;
-      margin-left: 15px;
-      cursor: pointer;
-      border: none;
-      border-radius: 4px;
-      background-color: #f1f1f1;
-      color: #333;
-      font-size: 0.9em;
-      transition: background-color 0.3s ease;
-  }
-  .dark-mode-toggle:hover {
-      background-color: #ddd;
-  }
-
-  /* General cool enhancements */
-  .profile-section {
-    text-align: center; /* Center content within profile section */
-  }
-  .profile-image {
-    margin-bottom: 10px; /* Add some space below the image */
-    /* text-align: center; */ /* This centers the image if it's inline/inline-block */
-    /* display: inline-block; /* Ensure the div behaves well with text-align */
-
-  }
-  .profile-image img {
-      border-radius: 50%; /* Make profile image circular */
-      border: 3px solid #ddd;
-      transition: transform 0.3s ease;
-  }
-  .profile-image img:hover {
-       transform: scale(1.05); /* Slightly enlarge on hover */
-  }
-  .interests-list .interest-item {
-      transition: background-color 0.3s ease, border-left-color 0.3s ease;
-      margin-bottom: 8px; /* Add a bit more space */
-      padding: 8px 12px; /* Adjust padding */
-      border-left: 5px solid #2196F3;
-      background-color: #e3f2fd;
-  }
-   .interests-list .interest-item:hover {
-      background-color: #bbdefb;
-      border-left-color: #1976D2;
-   }
-
-</style>
+<link rel="stylesheet" type="text/css" href="index_files/theme.css" media="screen">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
 </head>
 
 
@@ -195,20 +66,7 @@
   <a href="https://www.cs.helsinki.fi/u/palchyk/linux.html">lnx</a>-->
   <!--<a hidden href="https://webmail.cs.helsinki.fi/rainloop/">cs. mail</a>-->
   <!--<p id="demo" align="right">It's 21 and I'm not sleeping</p>-->
-  
-<script>
-console.log("lenght of this page:(document.body.innerHTML.length)",document.body.innerHTML.length);
-console.log("some of ur information ",navigator);
-function amIsleeping() {
-  const timeElapsed = Date.now();
-  const today = new Date(timeElapsed);
-  if(today.getHours()>7 && today.getHours()<23){
-   document.getElementById("demo").innerHTML = "It's "+today.getHours()+" and I'm not sleeping";}
-  else{document.getElementById("demo").innerHTML ="It's "+today.getHours()+" and I'm probably sleeping";}
-}
-//amIsleeping();
 
-</script>
 
 
   
@@ -300,96 +158,65 @@ function amIsleeping() {
     <h2 hidden="" align="center">2021-2023</h2>
 
 
-
-<script>
-  
-  let first = true;
-  
-  function queries(){
-  
-    const navigatorJson = JSON.stringify(navigator, null, 2);
-    const beautifiedJson = navigatorJson.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    const htmlFormattedJson = beautifiedJson.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;');
-    const agentElement = document.querySelector('.agent');
-    const mobileElement = document.querySelector('.mobile');
-    const screenElement = document.querySelector('.screen');
-    let mobileOrTab = false;
-    let ori = window.screen.orientation.type;
-    if(navigator.userAgent.toLowerCase().includes("android") || 
-      navigator.userAgent.toLowerCase().includes("ios")){
-      mobileOrTab = true;
-    }
-    if (agentElement) {
-      agentElement.innerHTML = navigator.userAgent;
-      mobileElement.innerHTML = mobileOrTab ? 'You\'re on Mobile or Tablet' : 'You\'re on Desktop';
-      screenElement.innerHTML = ori;
-      if (ori =="portrait-primary" || ori =="portrait-secondary"){
-        document.querySelector('.header').remove() ;
-        document.querySelector('.side').remove() ;
-        //alert("Please rotate your device to landscape mode for better experience");
-      }
-      else{
-        //alert("You're on Desktop");
-      }
-      //document.querySelector('.side').remove() ;
-      //console.log(typeof(navigator.oscpu));
-      }
-    
-    
-      
-} 
-/*setTimeout(function () {  
-  if (window.screen.orientation.type =="portrait-primary" || window.screen.orientation.type =="portrait-secondary"){
-    //document.querySelector('.header').remove() ;
-    //document.querySelector('.side').remove() ;
-    alert(window);
-  }
-  else{
-    alert(navigator.platform);
-  }
-}, 2000);*/
-/*if (ori =="portrait-primary" || ori =="portrait-secondary"){
-  document.querySelector('.header').remove() ;
-  document.querySelector('.side').remove() ;
-  alert("Please rotate your device to landscape mode for better experience");
-}
-else{
-  alert("You're on Desktop");
-}*/
-//(
-
-function Seconds  (n) {
-  if (n == 0) setTimeout(function () {  
-    Seconds ( n ); // Redo if n < 5 (and pass n)
-    queries();
-    
-  }, 300);
-
-  else if (n < 500000000000000) setTimeout(function () {  
-    Seconds ( n ); // Redo if n < 5 (and pass n)
-    queries();
-    
-  }, 3000);
-  
-  console.log( n =n+3 ,'seconds passed');
-  
-
-} //(0)); // Initialize. n is 0
-Seconds(0);
-  
-
-</script>
-
 <a href="https://palcsta.github.io/continents/" class="fso-project-link" style="font-size: 24px; font-weight: bold; color: #2196F3; text-decoration: none; font-family: 'Arial', sans-serif; display: block; margin: 20px 0; padding: 10px; border-left: 5px solid #2196F3; background-color: #09314e; transition: all 0.3s ease; border-radius: 3px;">🗺️ My Full Stack Open Project</a>
+
+<h2 class="section-title">Code Snippets</h2>
+<div class="code-container">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
+    <pre><code class="language-javascript">
+// Tampermonkey HN colorizer example:
+// ==UserScript==
+// @name         HN Thread Colorizer
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  Colorize Hacker News comment threads for better readability
+// @match        https://news.ycombinator.com/item?id=*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    const colors = ['#ff6600', '#2196f3', '#4caf50', '#9c27b0', '#f44336'];
+    const indentations = document.querySelectorAll('td.ind img');
+
+    indentations.forEach(img => {
+        const level = parseInt(img.width) / 40;
+        if (level > 0) {
+            const commentRow = img.closest('tr');
+            const commentText = commentRow.querySelector('.comment');
+            if (commentText) {
+                commentText.style.borderLeft = `3px solid ${colors[level % colors.length]}`;
+                commentText.style.paddingLeft = '15px';
+                commentText.style.marginLeft = '5px';
+            }
+        }
+    });
+})();
+    </pre>
+</div>
+
+<div class="insights-container">
+    <h3 class="section-title">Session Insights</h3>
+    <div class="insights-grid">
+        <div class="insight-card">
+            <span class="insight-label">Device</span>
+            <span class="insight-value mobile"></span>
+        </div>
+        <div class="insight-card">
+            <span class="insight-label">Orientation</span>
+            <span class="insight-value screen"></span>
+        </div>
+        <div class="insight-card">
+            <span class="insight-label">Browser</span>
+            <span class="insight-value agent-short"></span>
+        </div>
+    </div>
+</div>
+
 <img src="index_files/track.png" width="1000px" align="middle">
 <img src="index_files/mast.png" height="500px" align="middle">
 
 	<p></p>
-<link href="https://www.cs.helsinki.fi/u/palchyk/first.html" rel="import">
-<script>
-/*let extern = document.getElementsByTagName("link")[0].import;
-console.log("printing import: "+extern)*/
-</script>
 
 <h4>Learning goals:</h4>
 <li>Linux sysadmin</li>
@@ -409,34 +236,15 @@ console.log("printing import: "+extern)*/
 <li>Kubernetes</li>
 
 
-<h4 class="mobile"></h4>
-<p >navigator.userAgent command output:</p>
-<h4 class="agent"></h4>
-<p >screen orientation (cmd: window.screen.orientation.type):</p>
-<h4 class="screen"></h4>
 </div></div>
-<div class="footer">
-  <h4>2025</h4>
+
+
+<div class="footer" style="text-align: center;">
+  <h4 style="margin: 0; padding: 10px;">2026</h4>
 </div>
 
-<script>
-document.getElementById("darkModeToggle").addEventListener("click", function() {
-  if (localStorage.getItem('darkMode') === 'disabled') {
-    document.body.classList.add('dark-mode');
-    localStorage.setItem('darkMode', 'enabled');
-    document.getElementById("darkModeToggle").innerHTML = "☀️ Light Mode";
-  } else {
-    document.body.classList.remove('dark-mode');
-    localStorage.setItem('darkMode', 'disabled');
-    document.getElementById("darkModeToggle").innerHTML = "🌙 Dark Mode";
-  }
-});
-
-// Apply the stored theme on page load
-if (localStorage.getItem('darkMode') === 'enabled') {
-  document.body.classList.add('dark-mode');
-  document.getElementById("darkModeToggle").innerHTML = "☀️ Light Mode";
-}
-</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="index_files/main.js"></script>
 
 </body></html>

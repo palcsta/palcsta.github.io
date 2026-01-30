@@ -1,0 +1,260 @@
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #1a1a1a; /* Dark background */
+  color: #e0e0e0; /* Lighter text */
+}
+body.dark-mode .header,
+body.dark-mode .navbar,
+body.dark-mode .footer {
+  background-color: #2c2c2c; /* Darker header/footer */
+  color: #e0e0e0;
+}
+body.dark-mode .navbar a {
+  color: #bbdefb; /* Lighter blue links */
+}
+body.dark-mode .navbar a:hover {
+  background-color: #424242; /* Darker hover */
+  color: white;
+}
+body.dark-mode .side,
+body.dark-mode .main {
+  background-color: #212121; /* Darker side/main */
+}
+body.dark-mode .profile-section,
+body.dark-mode .university-section,
+body.dark-mode .side h2,
+body.dark-mode .main h2,
+body.dark-mode .main h4,
+body.dark-mode .main li,
+body.dark-mode .side h3,
+body.dark-mode .side p,
+body.dark-mode .interests-list .interest-item {
+   color: #e0e0e0;
+}
+body.dark-mode .interests-list .interest-item {
+  background-color: #333; /* Darker interest items */
+  border-left: 5px solid #bbdefb;
+}
+body.dark-mode .fakeimg {
+  background-color: #424242; /* Darker fake images */
+  color: #bdbdbd;
+}
+body.dark-mode .degree-text {
+  color: #bdbdbd;
+}
+body.dark-mode .profile-image img {
+  border: 3px solid #424242; /* Darker border */
+}
+body.dark-mode .dark-mode-toggle {
+  background-color: #555;
+  color: #fff;
+}
+body.dark-mode .dark-mode-toggle:hover {
+  background-color: #777;
+}
+
+/* Hide all images in dark mode by default */
+body.dark-mode img {
+  display: none;
+}
+
+/* Specifically make the profile image visible in dark mode */
+body.dark-mode .profile-image img {
+  display: inline-block; /* Or block, depending on desired layout */
+  border: 3px solid #424242; /* Keep the dark mode border */
+}
+
+/* Also make the hit counter image visible in dark mode */
+body.dark-mode .header img[src*="counter.digits.net"] {
+  display: inline; /* It's likely an inline element */
+}
+
+/* Full Stack Project link dark mode */
+body.dark-mode .fso-project-link {
+  background-color: #333; /* Darker background */
+  color: #bbdefb; /* Lighter blue text */
+  border-left-color: #bbdefb; /* Lighter blue border */
+}
+
+body.dark-mode .fso-project-link:hover {
+  background-color: #424242; /* Darker hover background */
+  border-left-color: #90caf9; /* Even lighter blue on hover */
+}
+
+/* Toggle Button Style */
+.dark-mode-toggle {
+  padding: 5px 10px;
+  margin-left: 15px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  color: #333;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+}
+.dark-mode-toggle:hover {
+  background-color: #ddd;
+}
+
+/* General cool enhancements */
+.profile-section {
+  text-align: center; /* Center content within profile section */
+}
+.profile-image {
+  margin-bottom: 10px; /* Add some space below the image */
+}
+.profile-image img {
+  border-radius: 50%; /* Make profile image circular */
+  border: 3px solid #ddd;
+  transition: transform 0.3s ease;
+}
+.profile-image img:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+.interests-list .interest-item {
+  transition: background-color 0.3s ease, border-left-color 0.3s ease;
+  margin-bottom: 8px; /* Add a bit more space */
+  padding: 8px 12px; /* Adjust padding */
+  border-left: 5px solid #2196F3;
+  background-color: #e3f2fd;
+}
+.interests-list .interest-item:hover {
+  background-color: #bbdefb;
+  border-left-color: #1976D2;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .row {
+        flex-direction: column;
+    }
+    
+    .side {
+        flex: 100%;
+        padding: 15px;
+    }
+    
+    .main {
+        flex: 100%;
+        padding: 15px;
+        background-size: 50% !important; /* Scale background image on mobile */
+    }
+
+    .navbar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .navbar a {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    .header img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* Code Snippet Styles */
+.code-container {
+    position: relative;
+    margin: 1rem 0;
+}
+
+.copy-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px 10px;
+    background-color: #f1f1f1;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+    z-index: 10;
+    transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+    background-color: #ddd;
+}
+
+.copy-button.copied {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+}
+
+/* Dark mode adjustments for code */
+body.dark-mode .copy-button {
+    background-color: #444;
+    color: #eee;
+    border-color: #666;
+}
+
+body.dark-mode .copy-button:hover {
+    background-color: #555;
+}
+
+/* Session Insights Component */
+.insights-container {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.insight-card {
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.insight-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.insight-value {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    word-break: break-word;
+}
+
+body.dark-mode .insights-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .insight-card {
+    background: #2c2c2c;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+body.dark-mode .insight-label {
+    color: #aaa;
+}
+

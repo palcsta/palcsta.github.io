@@ -3,8 +3,11 @@
 [GitHub url](https://palcsta.github.io)
 
 TODOS:
-* code snippets with context highlighting(e.g. Tampermonkey HN colorizer)
-* decompose index
+* Done: code snippets with context highlighting (using Prism.js)
+* Done: decompose index (moved CSS/JS to separate files)
+* add more content to IoT section
+* improve mobile responsiveness
+
 
 ## Continents FullStack project
 

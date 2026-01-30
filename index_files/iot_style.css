@@ -1,0 +1,79 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+    padding: 20px;
+    color: #eee; /* Lighter text for dark background */
+    background: linear-gradient(to right bottom, #1a2a6c, #b21f1f, #fdbb2d); /* Cool gradient */
+    margin: 0;
+    min-height: 100vh; /* Ensure gradient covers full height */
+}
+
+section {
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+    border-radius: 8px; /* Slightly more rounded */
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent dark background for sections */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+h2 {
+    color: #fff; /* White title */
+    margin-bottom: 15px; /* Adjusted margin */
+    text-align: center; /* Center the main title */
+    font-size: 2.5em; /* Larger title */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5); /* Text shadow for depth */
+}
+
+h3 {
+     color: #f0f0f0; /* Lighter headings */
+     margin-bottom: 15px;
+}
+
+a {
+    color: #87CEFA; /* Light blue links */
+    text-decoration: none;
+    margin-left: 10px; /* Space out links in h2 */
+}
+
+a:hover {
+    color: #fff; /* White on hover */
+    text-decoration: underline;
+}
+
+p, ul {
+    margin-bottom: 10px;
+    line-height: 1.6; /* Improved readability */
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+/* Specific style for chapters section */
+.chapters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Add gap between chapter boxes */
+}
+
+.chapter {
+    flex: 1 1 calc(50% - 20px); /* Grow, shrink, basis 50% minus gap */
+    box-sizing: border-box;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.05); /* Slightly lighter background for chapters */
+    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover */
+}
+
+.chapter:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.chapter p strong {
+    color: #fdbb2d; /* Highlight chapter titles */
+}
