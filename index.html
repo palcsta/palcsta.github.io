@@ -161,19 +161,18 @@
 <a href="https://palcsta.github.io/continents/" class="fso-project-link" style="font-size: 24px; font-weight: bold; color: #2196F3; text-decoration: none; font-family: 'Arial', sans-serif; display: block; margin: 20px 0; padding: 10px; border-left: 5px solid #2196F3; background-color: #09314e; transition: all 0.3s ease; border-radius: 3px;">🗺️ My Full Stack Open Project</a>
 
 <h2 class="section-title">Code Snippets</h2>
-<div class="code-container">
-    <button class="copy-button" onclick="copyCode(this)">Copy</button>
-    <pre><code class="language-javascript">
-// Tampermonkey HN colorizer example:
-// ==UserScript==
-// @name         HN Thread Colorizer
-// @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Colorize Hacker News comment threads for better readability
-// @match        https://news.ycombinator.com/item?id=*
-// @grant        none
-// ==/UserScript==
+<div class="code-section">
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event, 'js-snippet')">JavaScript</button>
+        <button class="tab-button" onclick="openTab(event, 'python-snippet')">Python</button>
+        <button class="tab-button" onclick="openTab(event, 'bash-snippet')">Bash</button>
+    </div>
 
+    <div id="js-snippet" class="tab-content active">
+        <div class="code-container">
+            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+            <pre><code class="language-javascript">
+// Tampermonkey HN colorizer example:
 (function() {
     'use strict';
     const colors = ['#ff6600', '#2196f3', '#4caf50', '#9c27b0', '#f44336'];
@@ -192,8 +191,49 @@
         }
     });
 })();
-    </pre>
+            </code></pre>
+        </div>
+    </div>
+
+    <div id="python-snippet" class="tab-content">
+        <div class="code-container">
+            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+            <pre><code class="language-python">
+# Simple FastAPI example
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int):
+    return {"item_id": item_id}
+            </code></pre>
+        </div>
+    </div>
+
+    <div id="bash-snippet" class="tab-content">
+        <div class="code-container">
+            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+            <pre><code class="language-bash">
+#!/bin/bash
+# A simple script to check disk usage and warn if high
+THRESHOLD=90
+USAGE=$(df / | tail -1 | awk '{print $5}' | sed 's/%//')
+
+if [ "$USAGE" -gt "$THRESHOLD" ]; then
+    echo "Warning: Disk usage is at ${USAGE}%!"
+else
+    echo "Disk usage is normal: ${USAGE}%"
+fi
+            </code></pre>
+        </div>
+    </div>
 </div>
+
 
 <div class="insights-container">
     <h3 class="section-title">Session Insights</h3>
@@ -239,12 +279,14 @@
 </div></div>
 
 
-<div class="footer" style="text-align: center;">
-  <h4 style="margin: 0; padding: 10px;">2026</h4>
+<div class="footer" style="display: flex; justify-content: center; align-items: center; width: 100%;">
+  <h4 style="margin: 0; padding: 20px;">2026</h4>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
 <script src="index_files/main.js"></script>
 
 </body></html>

@@ -164,9 +164,72 @@ body.dark-mode .fso-project-link:hover {
 }
 
 /* Code Snippet Styles */
+.code-section {
+    margin: 2rem 0;
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 0;
+}
+
+.tab-button {
+    padding: 10px 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+}
+
+.tab-button:hover {
+    color: var(--primary-color);
+    background-color: rgba(37, 99, 235, 0.05);
+}
+
+.tab-button.active {
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
+}
+
+body.dark-mode .tabs {
+    border-bottom-color: #444;
+}
+
+body.dark-mode .tab-button {
+    color: #aaa;
+}
+
+body.dark-mode .tab-button.active {
+    color: #bbdefb;
+    border-bottom-color: #bbdefb;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
 .code-container {
     position: relative;
-    margin: 1rem 0;
+    margin-top: 0;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+}
+
+body.dark-mode .code-container {
+    border-color: #444;
 }
 
 .copy-button {
