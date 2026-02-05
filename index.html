@@ -173,11 +173,11 @@
         const level = parseInt(img.width) / 40;
         if (level > 0) {
             const commentRow = img.closest('tr');
-            const commentText = commentRow.querySelector('.comment');
+            const commentText = commentRow.querySelector('.comment').style;
             if (commentText) {
-                commentText.style.borderLeft = `3px solid ${colors[level % colors.length]}`;
-                commentText.style.paddingLeft = '15px';
-                commentText.style.marginLeft = '5px';
+                commentText.borderLeft = `3px solid ${colors[level % colors.length]}`;
+                commentText.paddingLeft = '15px';
+                commentText.marginLeft = '5px';
             }
         }
     });
