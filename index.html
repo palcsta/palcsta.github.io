@@ -164,7 +164,13 @@
             <button class="copy-button" onclick="copyCode(this)">Copy</button>
             <pre><code class="language-javascript">
 //system theme detector
-window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+const getPreferredTheme = () => {
+    const storedTheme = localStorage.getItem('darkMode');
+    if (storedTheme === 'dark' || storedTheme === 'light') return storedTheme;
+    if (storedTheme === 'enabled') return 'dark';
+    if (storedTheme === 'disabled') return 'light';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
 
 // Tampermonkey HN colorizer example:
 (function() {
@@ -243,6 +249,10 @@ fi
         <div class="insight-card">
             <span class="insight-label">Browser</span>
             <span class="insight-value agent-short"></span>
+        </div>
+        <div class="insight-card">
+            <span class="insight-label">Theme</span>
+            <span class="insight-value theme-status"></span>
         </div>
     </div>
 </div>

@@ -25,6 +25,7 @@ function queries() {
     const agentElement = document.querySelector('.agent-short');
     const mobileElement = document.querySelector('.mobile');
     const screenElement = document.querySelector('.screen');
+    const themeElement = document.querySelector('.theme-status');
     
     let mobileOrTab = false;
     let ori = window.screen.orientation ? window.screen.orientation.type : 'unknown';
@@ -47,6 +48,10 @@ function queries() {
             else if (ua.includes("Safari")) browser = "Safari";
             else if (ua.includes("Edge")) browser = "Edge";
             agentElement.innerHTML = browser;
+        }
+
+        if (themeElement) {
+            themeElement.innerHTML = document.body.classList.contains('dark-mode') ? '🌙 Dark' : '☀️ Light';
         }
     }
 }
