@@ -163,6 +163,9 @@
         <div class="code-container">
             <button class="copy-button" onclick="copyCode(this)">Copy</button>
             <pre><code class="language-javascript">
+//system theme detector
+window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+
 // Tampermonkey HN colorizer example:
 (function() {
     'use strict';
