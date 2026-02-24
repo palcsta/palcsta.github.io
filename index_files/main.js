@@ -51,7 +51,7 @@ function queries() {
         }
 
         if (themeElement) {
-            themeElement.innerHTML = document.body.classList.contains('dark-mode') ? '🌙 Dark' : '☀️ Light';
+            themeElement.innerHTML = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
     }
 }
