@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Ref: Crypto & Security</title>
+    <link rel="stylesheet" type="text/css" href="index_files/mystyles.css" media="screen">
+    <style>
+        :root {
+            --term-bg: #0d0d0d;
+            --term-green: #00ff00;
+            --term-amber: #ffb000;
+            --term-blue: #0087ff;
+            --term-text: #e0e0e0;
+            --term-dim: #666;
+            --term-purple: #bd93f9;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: var(--term-text);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            display: block;
+        }
+
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .terminal-window {
+            background-color: var(--term-bg);
+            border: 1px solid #333;
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 900px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .terminal-header {
+            background-color: #333;
+            padding: 5px 10px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .terminal-content {
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .prompt { color: var(--term-green); }
+        .command { color: #fff; font-weight: bold; }
+        .output { color: var(--term-dim); margin-bottom: 15px; font-size: 0.85em; }
+
+        h1 { color: var(--term-amber); text-align: center; }
+
+        /* Crypto Flow Visualization */
+        .crypto-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            max-width: 900px;
+            margin: 40px 0;
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            border: 1px dashed var(--term-dim);
+        }
+
+        .actor-box {
+            text-align: center;
+            border: 1px solid var(--term-blue);
+            padding: 15px;
+            width: 120px;
+            border-radius: 4px;
+        }
+
+        .arrow {
+            flex-grow: 1;
+            height: 2px;
+            background: var(--term-amber);
+            position: relative;
+            margin: 0 20px;
+        }
+
+        .arrow::after {
+            content: '>';
+            position: absolute;
+            right: -5px;
+            top: -10px;
+            color: var(--term-amber);
+            font-weight: bold;
+        }
+
+        .data-packet {
+            position: absolute;
+            top: -25px;
+            left: 0;
+            font-size: 0.8em;
+            color: var(--term-purple);
+            animation: move-packet 4s linear infinite;
+        }
+
+        @keyframes move-packet {
+            0% { left: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { left: 100%; opacity: 0; }
+        }
+
+        .key { font-size: 1.5em; margin: 10px 0; }
+        .key-pub { color: var(--term-blue); }
+        .key-priv { color: var(--term-amber); }
+
+        .back-link {
+            color: var(--term-amber);
+            text-decoration: none;
+            margin-top: 20px;
+            border: 1px solid var(--term-amber);
+            padding: 5px 15px;
+        }
+
+        .back-link:hover {
+            background: var(--term-amber);
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="index.html">🏠 Home</a>
+        <a href="networking.html">🌐 Networking</a>
+        <a href="processes.html">📟 Processes</a>
+        <a href="crypto.html">🔒 Crypto</a>
+        <a href="iot.html">IoT</a>
+        <button id="darkModeToggle" class="dark-mode-toggle">🌙 Dark Mode</button>
+    </div>
+
+    <div class="container">
+    <h1>[ CS: CRYPTO_&_SEC ]</h1>
+
+    <div class="crypto-container">
+        <div class="actor-box">
+            <div>Alice</div>
+            <div class="key">👤</div>
+            <div style="font-size: 0.7em;">Sign with <span class="key-priv">Private Key</span></div>
+        </div>
+        <div class="arrow">
+            <div class="data-packet">{"msg": "hAck3d", "sig": "x8f2..."}</div>
+        </div>
+        <div class="actor-box">
+            <div>Bob</div>
+            <div class="key">🔒</div>
+            <div style="font-size: 0.7em;">Verify with <span class="key-pub">Public Key</span></div>
+        </div>
+    </div>
+
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+        </div>
+        <div class="terminal-content">
+            <div><span class="prompt">user@linux:~$</span> <span class="command">ssh-keygen -t ed25519 -C "user@pc"</span></div>
+            <div class="output">
+                Generating public/private ed25519 key pair.<br>
+                Enter file in which to save the key (/home/user/.ssh/id_ed25519): <br>
+                Your identification has been saved in /home/user/.ssh/id_ed25519<br>
+                Your public key has been saved in /home/user/.ssh/id_ed25519.pub
+            </div>
+
+            <div><span class="prompt">user@linux:~$</span> <span class="command">cat .ssh/id_ed25519.pub</span></div>
+            <div class="output" style="word-break: break-all;">
+                ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK6T7X8mJ9lPq9Wz2Q... user@pc
+            </div>
+
+            <div><span class="prompt">user@linux:~$</span> <span class="command">sha256sum sensitive_file.txt</span></div>
+            <div class="output">
+                e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  sensitive_file.txt
+            </div>
+
+            <div><span class="prompt">user@linux:~$</span> <span class="command">chmod 600 id_ed25519</span></div>
+            <div class="output"># Ensure only owner can read the private key</div>
+
+            <div><span class="prompt">user@linux:~$</span> <span class="command">gpg --encrypt --recipient bob@example.com msg.txt</span></div>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-link">&lt; BACK_TO_HOME</a>
+
+    </div>
+
+    <script src="index_files/main.js"></script>
+</body>
+</html>

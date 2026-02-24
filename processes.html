@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Ref: Processes & Memory</title>
+    <link rel="stylesheet" type="text/css" href="index_files/mystyles.css" media="screen">
+    <style>
+        :root {
+            --term-bg: #0d0d0d;
+            --term-green: #00ff00;
+            --term-amber: #ffb000;
+            --term-blue: #0087ff;
+            --term-text: #e0e0e0;
+            --term-dim: #666;
+            --term-red: #ff3e3e;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: var(--term-text);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            display: block;
+        }
+
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .terminal-window {
+            background-color: var(--term-bg);
+            border: 1px solid #333;
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 900px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .terminal-header {
+            background-color: #333;
+            padding: 5px 10px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .terminal-content {
+            padding: 20px;
+            line-height: 1.4;
+        }
+
+        .prompt { color: var(--term-green); }
+        .command { color: #fff; font-weight: bold; }
+        .output { color: var(--term-dim); margin-bottom: 15px; font-size: 0.9em; }
+
+        h1 { color: var(--term-amber); text-align: center; }
+
+        /* Monitor Visualization */
+        .monitor-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+            margin: 30px 0;
+        }
+
+        .monitor-card {
+            background: var(--term-bg);
+            border: 1px solid var(--term-dim);
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .bar-container {
+            height: 20px;
+            background: #222;
+            border: 1px solid #444;
+            margin: 10px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: var(--term-green);
+            transition: width 0.5s ease-out;
+        }
+
+        .bar-fill.warning { background: var(--term-amber); }
+        .bar-fill.critical { background: var(--term-red); }
+
+        .process-tree {
+            font-size: 0.85em;
+            color: var(--term-blue);
+        }
+
+        .tree-node { margin-left: 20px; border-left: 1px dashed #444; padding-left: 10px; }
+
+        .back-link {
+            color: var(--term-amber);
+            text-decoration: none;
+            margin-top: 20px;
+            border: 1px solid var(--term-amber);
+            padding: 5px 15px;
+        }
+
+        .back-link:hover {
+            background: var(--term-amber);
+            color: #000;
+        }
+
+        .blink { animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="index.html">🏠 Home</a>
+        <a href="networking.html">🌐 Networking</a>
+        <a href="processes.html">📟 Processes</a>
+        <a href="crypto.html">🔒 Crypto</a>
+        <a href="iot.html">IoT</a>
+        <button id="darkModeToggle" class="dark-mode-toggle">🌙 Dark Mode</button>
+    </div>
+
+    <div class="container">
+    <h1>[ CS: PROC_&_MEM ]</h1>
+
+    <div class="monitor-container">
+        <div class="monitor-card">
+            <div style="color: var(--term-amber);">CPU USAGE</div>
+            <div class="bar-container"><div class="bar-fill" style="width: 65%;"></div></div>
+            <div style="font-size: 0.8em;">Core 0: [||||||||||   ] 65%</div>
+            <div class="bar-container"><div class="bar-fill warning" style="width: 82%;"></div></div>
+            <div style="font-size: 0.8em;">Core 1: [|||||||||||| ] 82%</div>
+        </div>
+        <div class="monitor-card">
+            <div style="color: var(--term-amber);">MEMORY (RAM)</div>
+            <div class="bar-container"><div class="bar-fill" style="width: 42%;"></div></div>
+            <div style="font-size: 0.8em;">Used: 6.7GB / 16GB (42%)</div>
+            <div class="bar-container"><div class="bar-fill" style="width: 15%;"></div></div>
+            <div style="font-size: 0.8em;">Swap: 0.3GB / 2GB (15%)</div>
+        </div>
+    </div>
+
+    <div class="monitor-card" style="width: 100%; max-width: 900px; box-sizing: border-box;">
+        <div style="color: var(--term-blue); margin-bottom: 10px;">SYSTEM PROCESS TREE (pstree)</div>
+        <div class="process-tree">
+            systemd(1)
+            <div class="tree-node">
+                ├─sshd(842)
+                <div class="tree-node">└─sshd(2143)───bash(2145)───top(2410)</div>
+                ├─nginx(451)
+                <div class="tree-node">├─worker(452)</div>
+                <div class="tree-node">└─worker(453)</div>
+                └─uv(1502)───python(1503)
+            </div>
+        </div>
+    </div>
+
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+        </div>
+        <div class="terminal-content">
+            <div><span class="prompt">user@linux:~$</span> <span class="command">free -h</span></div>
+            <div class="output">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;used&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shared&nbsp;&nbsp;buff/cache&nbsp;&nbsp;&nbsp;available<br>
+                Mem:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;15Gi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.7Gi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.1Gi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.2Gi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.2Gi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.1Gi<br>
+                Swap:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.0Gi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;300Mi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.7Gi
+            </div>
+
+            <div><span class="prompt">user@linux:~$</span> <span class="command">ps aux | grep nginx</span></div>
+            <div class="output">
+                root&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;451&nbsp;&nbsp;0.0&nbsp;&nbsp;0.1&nbsp;&nbsp;14224&nbsp;&nbsp;2540&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ss&nbsp;&nbsp;&nbsp;Feb20&nbsp;&nbsp;&nbsp;0:00 nginx: master process /usr/sbin/nginx<br>
+                www-data&nbsp;&nbsp;&nbsp;452&nbsp;&nbsp;0.0&nbsp;&nbsp;0.2&nbsp;&nbsp;14580&nbsp;&nbsp;4120&nbsp;?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S&nbsp;&nbsp;&nbsp;&nbsp;Feb20&nbsp;&nbsp;&nbsp;0:05 nginx: worker process
+            </div>
+
+            <div><span class="prompt">user@linux:~$</span> <span class="command"># Terminate a stubborn process</span></div>
+            <div><span class="prompt">user@linux:~$</span> <span class="command">kill -9 1503</span></div>
+            
+            <div style="margin-top: 10px;"><span class="prompt">user@linux:~$</span> <span class="blink">_</span></div>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-link">&lt; BACK_TO_HOME</a>
+
+    </div>
+
+    <script src="index_files/main.js"></script>
+</body>
+</html>

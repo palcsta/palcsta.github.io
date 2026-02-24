@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Ref: Networking</title>
+    <link rel="stylesheet" type="text/css" href="index_files/mystyles.css" media="screen">
+    <style>
+        :root {
+            --term-bg: #0d0d0d;
+            --term-green: #00ff00;
+            --term-amber: #ffb000;
+            --term-blue: #0087ff;
+            --term-text: #e0e0e0;
+            --term-dim: #666;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: var(--term-text);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            display: block;
+        }
+
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .terminal-window {
+            background-color: var(--term-bg);
+            border: 1px solid #333;
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 900px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .terminal-header {
+            background-color: #333;
+            padding: 5px 10px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .terminal-content {
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .prompt { color: var(--term-green); }
+        .command { color: #fff; font-weight: bold; }
+        .output { color: var(--term-dim); margin-bottom: 15px; }
+
+        h1 { color: var(--term-amber); text-align: center; }
+
+        /* OSI Visualization */
+        .osi-container {
+            display: flex;
+            flex-direction: column-reverse;
+            gap: 10px;
+            width: 100%;
+            max-width: 600px;
+            margin: 40px 0;
+        }
+
+        .osi-layer {
+            background: rgba(0, 135, 255, 0.1);
+            border: 1px solid var(--term-blue);
+            padding: 15px;
+            text-align: center;
+            cursor: help;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .osi-layer:hover {
+            background: rgba(0, 135, 255, 0.3);
+            transform: scale(1.02);
+            box-shadow: 0 0 15px var(--term-blue);
+        }
+
+        .osi-layer::after {
+            content: attr(data-info);
+            position: absolute;
+            left: 105%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--term-bg);
+            border: 1px solid var(--term-amber);
+            padding: 10px;
+            width: 250px;
+            text-align: left;
+            font-size: 0.8em;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+
+        .osi-layer:hover::after {
+            opacity: 1;
+        }
+
+        .layer-num { color: var(--term-amber); font-weight: bold; margin-right: 10px; }
+
+        @media (max-width: 800px) {
+            .osi-layer::after {
+                left: 0;
+                top: 100%;
+                transform: none;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .osi-container { margin-bottom: 150px; }
+        }
+
+        .back-link {
+            color: var(--term-amber);
+            text-decoration: none;
+            margin-top: 20px;
+            border: 1px solid var(--term-amber);
+            padding: 5px 15px;
+        }
+
+        .back-link:hover {
+            background: var(--term-amber);
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="index.html">🏠 Home</a>
+        <a href="networking.html">🌐 Networking</a>
+        <a href="processes.html">📟 Processes</a>
+        <a href="crypto.html">🔒 Crypto</a>
+        <a href="iot.html">IoT</a>
+        <button id="darkModeToggle" class="dark-mode-toggle">🌙 Dark Mode</button>
+    </div>
+
+    <div class="container">
+    <h1>[ CS: NETWORKING ]</h1>
+
+    <div class="osi-container">
+        <div class="osi-layer" data-info="Physical Layer: Cables, Hubs, Bits. Commands: ethtool, mii-tool.">
+            <span class="layer-num">L1</span> Physical
+        </div>
+        <div class="osi-layer" data-info="Data Link: MAC Addresses, Switches, Frames. Commands: ip link, arp.">
+            <span class="layer-num">L2</span> Data Link
+        </div>
+        <div class="osi-layer" data-info="Network: IP Addresses, Routing, Packets. Commands: ip addr, ip route, ping, traceroute.">
+            <span class="layer-num">L3</span> Network
+        </div>
+        <div class="osi-layer" data-info="Transport: TCP/UDP, Ports, Segments. Commands: netstat, ss, lsof.">
+            <span class="layer-num">L4</span> Transport
+        </div>
+        <div class="osi-layer" data-info="Session: Communication management. Protocols: NetBIOS, RPC.">
+            <span class="layer-num">L5</span> Session
+        </div>
+        <div class="osi-layer" data-info="Presentation: Data format, Encryption (SSL/TLS).">
+            <span class="layer-num">L6</span> Presentation
+        </div>
+        <div class="osi-layer" data-info="Application: HTTP, FTP, SSH, DNS. Commands: curl, dig, ssh.">
+            <span class="layer-num">L7</span> Application
+        </div>
+    </div>
+
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+        </div>
+        <div class="terminal-content">
+            <div><span class="prompt">user@linux:~$</span> <span class="command">ip addr show eth0</span></div>
+            <div class="output">
+                2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;link/ether 08:00:27:8d:c3:25 brd ff:ff:ff:ff:ff:ff<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;inet 192.168.1.103/24 brd 192.168.1.255 scope global dynamic eth0<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;inet6 fe80::a00:27ff:fe8d:c325/64 scope link
+            </div>
+
+            <div><span class="prompt">user@linux:~$</span> <span class="command">ss -tunlp</span></div>
+            <div class="output">
+                Netid  State      Recv-Q Send-Q    Local Address:Port    Peer Address:Port<br>
+                udp    UNCONN     0      0               0.0.0.0:68             0.0.0.0:*<br>
+                tcp    LISTEN     0      128             0.0.0.0:22             0.0.0.0:*<br>
+                tcp    LISTEN     0      100           127.0.0.1:25             0.0.0.0:*
+            </div>
+
+            <div><span class="prompt">user@linux:~$</span> <span class="command">dig +short google.com</span></div>
+            <div class="output">142.250.185.78</div>
+
+            <div><span class="prompt">user@linux:~$</span> <span class="command"># Tip: Use 'ip -c addr' for colored output!</span></div>
+        </div>
+    </div>
+
+    <a href="index.html" class="back-link">&lt; BACK_TO_HOME</a>
+
+    </div>
+
+    <script src="index_files/main.js"></script>
+</body>
+</html>
