@@ -185,7 +185,9 @@
             <div class="dot green"></div>
         </div>
         <div class="terminal-content">
-            <div><span class="prompt">user@linux:~$</span> <span class="command">ip addr show eth0</span> <span class="output"># Show IP address for interface eth0</span></div>
+            <div><span class="prompt"># Purpose: Network interface inspection</span></div>
+            <div><span class="prompt"># Description: Displays IP addresses and properties for the eth0 interface</span></div>
+            <div><span class="prompt">user@linux:~$</span> <span class="command">ip addr show eth0</span></div>
             <div class="output">
                 2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;link/ether 08:00:27:8d:c3:25 brd ff:ff:ff:ff:ff:ff<br>
@@ -193,7 +195,9 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;inet6 fe80::a00:27ff:fe8d:c325/64 scope link
             </div>
 
-            <div><span class="prompt">user@linux:~$</span> <span class="command">ss -tunlp</span> <span class="output"># List listening TCP/UDP ports and processes</span></div>
+            <div><span class="prompt"># Purpose: Service and port auditing</span></div>
+            <div><span class="prompt"># Description: Lists all listening TCP and UDP ports with process names</span></div>
+            <div><span class="prompt">user@linux:~$</span> <span class="command">ss -tunlp</span></div>
             <div class="output">
                 Netid  State      Recv-Q Send-Q    Local Address:Port    Peer Address:Port<br>
                 udp    UNCONN     0      0               0.0.0.0:68             0.0.0.0:*<br>
@@ -201,7 +205,9 @@
                 tcp    LISTEN     0      100           127.0.0.1:25             0.0.0.0:*
             </div>
 
-            <div><span class="prompt">user@linux:~$</span> <span class="command">dig +short google.com</span> <span class="output"># Perform quick DNS lookup</span></div>
+            <div><span class="prompt"># Purpose: Domain name resolution</span></div>
+            <div><span class="prompt"># Description: Quickly checks the IP address associated with a domain</span></div>
+            <div><span class="prompt">user@linux:~$</span> <span class="command">dig +short google.com</span></div>
             <div class="output">142.250.185.78</div>
 
             <div><span class="prompt">user@linux:~$</span> <span class="command"># Tip: Use 'ip -c addr' for colored output!</span></div>
