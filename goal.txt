@@ -1,0 +1,73 @@
+
+Trainee, System Simulation & Digital Twin
+Finland
+Duration: 6 months / Flexible
+Target start date: Spring 2026 / Flexible
+Educational recommendations: Current MSc students in relevant areas, such as Telecommunications
+Location: Espoo, Finland
+ 
+
+Your core mission is to contribute to the development and evolution of advanced simulation models that support 5G, 6G, and future mobile technologies, as well as the long-term evolution of Digital Twin based simulators. You will work on algorithm development, feature specification, and performance analysis to ensure simulations accurately reflect real-world network behavior. By collaborating closely with cross-functional teams, standardization bodies, and customers, you will help shape next generation mobile networks and support Nokia’s mission to connect people and devices seamlessly through innovative telecommunications solutions.
+ 
+
+Your responsibilities
+Validate advanced algorithms for the Nokia RAN System, focusing on 5G, 6G and future technologies
+Develop MN RAN system simulations to ensure alignment with evolving product requirements
+Participate in analysis of customer feature requests, and simulation requirements
+Collaborate with standardization delegates to align on functions and procedures for optimal support
+Utilize strong analytical skills to guide simulation design and performance analysis, ensuring key performance indicators are met
+Participate the architecture and roadmap design of MN RAN Digital Twin to support new products and advanced simulations
+Innovation to enable AI/ML to support work efficiency and promote product performance
+
+ 
+Your skills and experience
+Master's studies or equivalent in telecommunications
+Experience with simulation tools and frameworks (e.g., MATLAB, Simulink, or similar)
+Good knowledge of telecom Digital Twin
+Familiarity with 3GPP specifications
+Knowledge of GPU programming (e.g., CUDA, OpenCL) and parallel computing
+Proficiency in programming languages such as Python, C and C++
+Experience with AI/ML techniques for predictive modeling and optimization
+Good analytical skills and fluency in written and spoken English
+ 
+
+Kindly note that to be able to work as a trainee at Nokia Finland, you must hold an active student status and be located in Finland since international relocation support is not available for trainee positions. 
+
+About Us
+Advancing connectivity to secure a brighter world.
+Nokia is a global leader in connectivity for the AI era. With expertise across fixed, mobile and transport networks, powered by the innovation of Nokia Bell Labs, we’re advancing connectivity to secure a brighter world. 
+
+Learn more about life at Nokia.
+
+
+Our recruitment process
+
+We act inclusively and respect the uniqueness of people. Our employment decisions are made regardless of race, color, national or ethnic origin, religion, gender, sexual orientation, gender identity or expression, age, marital status, disability, protected veteran status or other characteristics protected by law. We are committed to a culture of inclusion built upon our core value of respect.
+
+If you’re interested in this role but don’t meet every listed requirement, we still encourage you to apply. Unique backgrounds, perspectives, and experiences enrich our teams, and you may be just the right candidate for this or another opportunity.
+
+The length of the recruitment process may vary depending on the specific role's requirements. We strive to ensure a smooth and inclusive experience for all candidates. Discover more about the recruitment process at Nokia. 
+
+Apply Now
+Job Info
+Job Category
+Corporate Services
+Posting Date
+03/05/2026
+Degree Level
+Master’s degree
+Job Schedule
+Full time
+Job Type
+Fixed Term Student Trainee/Apprentice (3 months+)
+Job Identification
+28059
+Role Type
+Individual contributor
+Locations
+ Karakaari 15, Espoo, 02610, FI
+ 
+
+Legend
+
+

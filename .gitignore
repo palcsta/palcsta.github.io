@@ -1,0 +1,15 @@
+# Academic documents
+SuoritusotePalchyk.pdf
+
+# Environment
+.env
+.env.local
+
+# IDE
+.cursor/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
