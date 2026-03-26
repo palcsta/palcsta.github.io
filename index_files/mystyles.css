@@ -263,6 +263,14 @@ body.dark-mode .tab-button.active {
   border-bottom: 2px solid var(--card-bg-dark);
 }
 
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
 .code-container {
   border: 1px solid var(--border-light);
   border-radius: 0 0.75rem 0.75rem 0.75rem;
