@@ -412,6 +412,27 @@ body.dark-mode .dropdown-content {
   background: var(--bg-light);
 }
 
+.dropdown-header {
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted-light);
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.dropdown-header:first-child {
+  margin-top: 0;
+}
+
+body.dark-mode .dropdown-header {
+  color: var(--text-muted-dark);
+  border-bottom-color: var(--border-dark);
+}
+
 body.dark-mode .dropdown-content a:hover {
   background: var(--bg-dark);
 }
