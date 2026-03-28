@@ -1,145 +1,171 @@
-console.log("lenght of this page:(document.body.innerHTML.length)", document.body.innerHTML.length);
-console.log("some of ur information ", navigator);
+function detectBrowser() {
+    const ua = navigator.userAgent;
 
-function amIsleeping() {
-    const timeElapsed = Date.now();
-    const today = new Date(timeElapsed);
-    const demoElement = document.getElementById("demo");
-    if (!demoElement) return;
-
-    if (today.getHours() > 7 && today.getHours() < 23) {
-        demoElement.innerHTML = "It's " + today.getHours() + " and I'm not sleeping";
-    } else {
-        demoElement.innerHTML = "It's " + today.getHours() + " and I'm probably sleeping";
+    if (ua.includes("Edg")) {
+        return "Edge";
     }
-}
-// amIsleeping();
-
-let first = true;
-
-function queries() {
-    const navigatorJson = JSON.stringify(navigator, null, 2);
-    const beautifiedJson = navigatorJson.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    const htmlFormattedJson = beautifiedJson.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;');
-    
-    const agentElement = document.querySelector('.agent-short');
-    const mobileElement = document.querySelector('.mobile');
-    const screenElement = document.querySelector('.screen');
-    const themeElement = document.querySelector('.theme-status');
-    
-    let mobileOrTab = false;
-    let ori = window.screen.orientation ? window.screen.orientation.type : 'unknown';
-    
-    if (navigator.userAgent.toLowerCase().includes("android") || 
-        navigator.userAgent.toLowerCase().includes("ios")) {
-        mobileOrTab = true;
+    if (ua.includes("Chrome")) {
+        return "Chrome";
     }
-    
-    if (mobileElement) {
-        mobileElement.innerHTML = mobileOrTab ? '📱 Mobile/Tablet' : '💻 Desktop';
-        if (screenElement) screenElement.innerHTML = ori.replace(/-/g, ' ');
-        
-        if (agentElement) {
-            // Extract a cleaner browser name
-            const ua = navigator.userAgent;
-            let browser = "Unknown";
-            if (ua.includes("Chrome")) browser = "Chrome";
-            else if (ua.includes("Firefox")) browser = "Firefox";
-            else if (ua.includes("Safari")) browser = "Safari";
-            else if (ua.includes("Edge")) browser = "Edge";
-            agentElement.innerHTML = browser;
-        }
-
-        if (themeElement) {
-            themeElement.innerHTML = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
+    if (ua.includes("Firefox")) {
+        return "Firefox";
     }
+    if (ua.includes("Safari")) {
+        return "Safari";
+    }
+
+    return "Unknown";
 }
 
-function Seconds(n) {
-    if (n == 0) {
-        setTimeout(function () {
-            Seconds(n);
-            queries();
-        }, 300);
-    } else if (n < 500000000000000) {
-        setTimeout(function () {
-            Seconds(n);
-            queries();
-        }, 3000);
-    }
-    console.log(n = n + 3, 'seconds passed');
+function detectDeviceType() {
+    const mobilePattern = /Android|iPhone|iPad|iPod|Mobile/i;
+    return mobilePattern.test(navigator.userAgent) ? "Mobile / Tablet" : "Desktop";
 }
 
-Seconds(0);
+function detectOrientation() {
+    if (window.screen.orientation && window.screen.orientation.type) {
+        return window.screen.orientation.type.replace(/-/g, " ");
+    }
 
-// Dark Mode Toggle
-document.addEventListener('DOMContentLoaded', () => {
-    const darkModeToggle = document.getElementById("darkModeToggle");
-    if (darkModeToggle) {
-        const getPreferredTheme = () => {
-            const storedTheme = localStorage.getItem('darkMode');
-            if (storedTheme === 'dark' || storedTheme === 'light') {
-                return storedTheme;
-            }
-            // For backward compatibility or if not set, check system preference
-            if (storedTheme === 'enabled') return 'dark';
-            if (storedTheme === 'disabled') return 'light';
-            
-            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        };
+    return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
+}
 
-        const setTheme = (theme) => {
-            if (theme === 'dark') {
-                document.body.classList.add('dark-mode');
-                darkModeToggle.innerHTML = "☀️ Light Mode";
-            } else {
-                document.body.classList.remove('dark-mode');
-                darkModeToggle.innerHTML = "🌙 Dark Mode";
-            }
-        };
+function getPreferredTheme() {
+    const storedTheme = localStorage.getItem("theme");
 
-        darkModeToggle.addEventListener("click", function() {
-            const currentTheme = getPreferredTheme();
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            localStorage.setItem('darkMode', newTheme);
-            setTheme(newTheme);
+    if (storedTheme === "dark" || storedTheme === "light") {
+        return storedTheme;
+    }
+
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function setTheme(theme) {
+    const toggle = document.getElementById("darkModeToggle");
+    const isDark = theme === "dark";
+
+    document.body.classList.toggle("dark-mode", isDark);
+
+    if (toggle) {
+        toggle.textContent = isDark ? "Light mode" : "Dark mode";
+        toggle.setAttribute("aria-pressed", String(isDark));
+    }
+
+    const themeElement = document.querySelector(".theme-status");
+    if (themeElement) {
+        themeElement.textContent = isDark ? "Dark" : "Light";
+    }
+}
+
+function updateSessionInsights() {
+    const browserElement = document.querySelector(".agent-short");
+    const deviceElement = document.querySelector(".mobile");
+    const orientationElement = document.querySelector(".screen");
+    const themeElement = document.querySelector(".theme-status");
+
+    if (browserElement) {
+        browserElement.textContent = detectBrowser();
+    }
+    if (deviceElement) {
+        deviceElement.textContent = detectDeviceType();
+    }
+    if (orientationElement) {
+        orientationElement.textContent = detectOrientation();
+    }
+    if (themeElement) {
+        themeElement.textContent = document.body.classList.contains("dark-mode") ? "Dark" : "Light";
+    }
+}
+
+function setupTabs() {
+    const buttons = document.querySelectorAll(".tab-button");
+    const panels = document.querySelectorAll(".tab-content");
+
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            const targetId = button.dataset.tab;
+
+            buttons.forEach((item) => item.classList.remove("active"));
+            panels.forEach((panel) => panel.classList.remove("active"));
+
+            button.classList.add("active");
+            document.getElementById(targetId)?.classList.add("active");
         });
-
-        // Apply the initial theme
-        setTheme(getPreferredTheme());
-    }
-});
-
-function copyCode(button) {
-    const container = button.parentElement;
-    const code = container.querySelector('code').innerText;
-    
-    navigator.clipboard.writeText(code).then(() => {
-        const originalText = button.innerText;
-        button.innerText = 'Copied!';
-        button.classList.add('copied');
-        
-        setTimeout(() => {
-            button.innerText = originalText;
-            button.classList.remove('copied');
-        }, 2000);
-    }).catch(err => {
-        console.error('Failed to copy: ', err);
     });
 }
 
-function openTab(evt, tabName) {
-    const tabContents = document.getElementsByClassName("tab-content");
-    for (let i = 0; i < tabContents.length; i++) {
-        tabContents[i].classList.remove("active");
-    }
+function setupCopyButtons() {
+    const buttons = document.querySelectorAll(".copy-button");
 
-    const tabButtons = document.getElementsByClassName("tab-button");
-    for (let i = 0; i < tabButtons.length; i++) {
-        tabButtons[i].classList.remove("active");
-    }
+    buttons.forEach((button) => {
+        button.addEventListener("click", async () => {
+            const code = button.parentElement?.querySelector("code");
+            if (!code) {
+                return;
+            }
 
-    document.getElementById(tabName).classList.add("active");
-    evt.currentTarget.classList.add("active");
+            try {
+                await navigator.clipboard.writeText(code.innerText);
+                const originalText = button.textContent;
+                button.textContent = "Copied";
+                button.classList.add("copied");
+
+                window.setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove("copied");
+                }, 1400);
+            } catch (error) {
+                button.textContent = "Failed";
+                window.setTimeout(() => {
+                    button.textContent = "Copy";
+                }, 1400);
+                console.error("Clipboard write failed", error);
+            }
+        });
+    });
 }
+
+function setupRevealAnimation() {
+    const nodes = document.querySelectorAll(".reveal");
+
+    if (!("IntersectionObserver" in window)) {
+        nodes.forEach((node) => node.classList.add("is-visible"));
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.14 });
+
+    nodes.forEach((node) => observer.observe(node));
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const theme = getPreferredTheme();
+    setTheme(theme);
+    updateSessionInsights();
+    setupTabs();
+    setupCopyButtons();
+    setupRevealAnimation();
+
+    document.getElementById("darkModeToggle")?.addEventListener("click", () => {
+        const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
+        localStorage.setItem("theme", nextTheme);
+        setTheme(nextTheme);
+        updateSessionInsights();
+    });
+
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+        if (!localStorage.getItem("theme")) {
+            setTheme(event.matches ? "dark" : "light");
+            updateSessionInsights();
+        }
+    });
+
+    window.addEventListener("resize", updateSessionInsights);
+});
