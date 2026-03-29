@@ -159,6 +159,17 @@ body.dark-mode .topbar {
   background: var(--accent-soft);
 }
 
+.navbar .nav-live {
+  background: var(--accent);
+  color: #f7fffe;
+}
+
+.navbar .nav-live:hover,
+.navbar .nav-live:focus-visible {
+  background: var(--accent-strong);
+  color: #f7fffe;
+}
+
 .dark-mode-toggle {
   border: 1px solid var(--border);
   background: var(--surface-strong);
@@ -443,6 +454,10 @@ body.dark-mode .topbar {
 
 .skill-grid {
   align-items: stretch;
+}
+
+.skill-grid-simple {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .project-card {
