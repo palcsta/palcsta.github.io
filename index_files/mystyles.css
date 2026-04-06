@@ -197,6 +197,109 @@ body.dark-mode .topbar {
   gap: 24px;
 }
 
+.post-list {
+  display: grid;
+  gap: 18px;
+}
+
+.post-list-heading {
+  margin-bottom: 0;
+}
+
+.post-list-heading h2 {
+  max-width: none;
+}
+
+.post-list-copy {
+  margin: 16px 0 0;
+  max-width: 60ch;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.post-preview {
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius) + 2px);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.post-toggle {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 28px;
+  text-align: left;
+  cursor: pointer;
+  display: grid;
+  gap: 10px;
+}
+
+.post-toggle:hover,
+.post-toggle:focus-visible {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+body.dark-mode .post-toggle:hover,
+body.dark-mode .post-toggle:focus-visible {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.post-meta,
+.post-hint {
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.post-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.post-summary {
+  max-width: 58ch;
+  color: var(--muted);
+  font-size: 1.04rem;
+  line-height: 1.7;
+}
+
+.post-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-hint::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+}
+
+.post-body {
+  display: none;
+  padding: 0 28px 28px;
+}
+
+.post-preview.is-open .post-body {
+  display: block;
+}
+
+.post-preview.is-open .post-toggle {
+  border-bottom: 1px solid var(--border);
+}
+
+.post-body-grid {
+  padding-top: 28px;
+}
+
 .blog-hero,
 .blog-card {
   background: var(--surface);
@@ -1397,6 +1500,12 @@ body.dark-mode .tab-button.active {
     grid-column: span 1;
   }
 
+  .post-toggle,
+  .post-body {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
   .workflow-arrow {
     width: 2px;
     min-width: 2px;
@@ -1446,6 +1555,24 @@ body.dark-mode .tab-button.active {
   .blog-card {
     padding: 22px;
     border-radius: 22px;
+  }
+
+  .post-preview {
+    border-radius: 22px;
+  }
+
+  .post-toggle,
+  .post-body {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .post-body {
+    padding-bottom: 20px;
+  }
+
+  .post-body-grid {
+    padding-top: 20px;
   }
 
   .blog-hero-visual {

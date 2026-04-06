@@ -145,12 +145,35 @@ function setupRevealAnimation() {
     nodes.forEach((node) => observer.observe(node));
 }
 
+function setupBlogCards() {
+    const cards = document.querySelectorAll("[data-blog-card]");
+
+    cards.forEach((card) => {
+        const toggle = card.querySelector(".post-toggle");
+        const hint = card.querySelector(".post-hint");
+
+        if (!toggle) {
+            return;
+        }
+
+        toggle.addEventListener("click", () => {
+            const isOpen = card.classList.toggle("is-open");
+            toggle.setAttribute("aria-expanded", String(isOpen));
+
+            if (hint) {
+                hint.textContent = isOpen ? "Close post" : "Open post";
+            }
+        });
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const theme = getPreferredTheme();
     setTheme(theme);
     updateSessionInsights();
     setupTabs();
     setupCopyButtons();
+    setupBlogCards();
     setupRevealAnimation();
 
     document.getElementById("darkModeToggle")?.addEventListener("click", () => {
