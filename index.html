@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Fatigue | Stanislav Pal'chyk</title>
-    <meta name="description" content="A personal blog post about AI fatigue, computer science, automation, trust, jobs, and hope for a better direction.">
+    <title>Blog | Stanislav Pal'chyk</title>
+    <meta name="description" content="A personal blog index with posts about AI, computer science, automation, trust, and practical work.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -22,9 +22,9 @@
 
         <nav class="navbar" aria-label="Primary navigation">
             <a class="nav-live" href="https://palcsta.github.io/continents/" target="_blank" rel="noreferrer">React demo</a>
-            <a href="#posts-title">AI Focus</a>
-            <a href="#skills">Skills</a>
-            <a href="#practical">Practical</a>
+            <a href="#blog-list">AI Focus</a>
+            <a href="blogs/2026-04-07-ai-fatigue.html#skills">Skills</a>
+            <a href="blogs/2026-04-07-ai-fatigue.html#practical">Practical</a>
             <a href="web-cv.html">Web-CV</a>
             <a class="nav-github" href="https://github.com/palcsta" target="_blank" rel="noreferrer" aria-label="GitHub profile">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -39,97 +39,22 @@
 
     <main class="container">
         <article class="blog-layout reveal">
-            <section class="post-list reveal">
-                <article class="post-preview" data-blog-card>
-                    <button class="post-toggle" type="button" aria-expanded="false">
-                        <span class="post-meta">April 2026 · Personal blog</span>
+            <section class="post-list reveal" id="blog-list">
+                <div class="post-list-toolbar">
+                    <label class="sort-label" for="blog-sort">Sort</label>
+                    <select id="blog-sort" class="sort-select" aria-label="Sort blog posts">
+                        <option value="newest" selected>Newest</option>
+                        <option value="oldest">Oldest</option>
+                    </select>
+                </div>
+
+                <article class="post-preview" data-blog-card data-published="2026-04-07">
+                    <a class="post-toggle post-link" href="blogs/2026-04-07-ai-fatigue.html">
+                        <span class="post-meta">2026-04-07 · Personal blog</span>
                         <span class="post-title">AI fatigue</span>
                         <span class="post-summary">Why AI feels frustrating even though the technology itself is still amazing.</span>
                         <span class="post-hint">Open post</span>
-                    </button>
-
-                    <div class="post-body">
-                        <div class="blog-grid post-body-grid">
-                            <section class="blog-card" id="skills">
-                                <span class="section-tag">😵 Friction</span>
-                                <h2>Cool tech, bad feeling</h2>
-                                <p>
-                                    AI is still one of the most impressive things I have ever seen in technology. It can generate,
-                                    analyze, automate, translate, and compress hours of work into minutes.
-                                </p>
-                                <p>
-                                    And still, the feeling it creates is often not wonder but exhaustion. The tools are powerful,
-                                    but the way they are pushed into everything makes daily life feel noisier, more synthetic, and less trustworthy.
-                                </p>
-                            </section>
-
-                            <section class="blog-card" id="practical">
-                                <span class="section-tag">💼 Work</span>
-                                <h2>More customers, not more meaning</h2>
-                                <p>
-                                    Too much of AI today feels aimed at one goal: more customers, more clicks, more retention,
-                                    more scale. It creates products, but not always meaning.
-                                </p>
-                                <p>
-                                    Automation should reduce useless effort. Instead, many systems are optimized to increase pressure,
-                                    dependency, and constant engagement. That is one reason AI feels frustrating to me even when the underlying
-                                    computer science is genuinely beautiful.
-                                </p>
-                            </section>
-
-                            <section class="blog-card">
-                                <span class="section-tag">🎓 CS</span>
-                                <h2>My perspective as a computer science graduate</h2>
-                                <p>
-                                    I graduated in computer science, but I still do not feel like I have a clear perspective in landing a job.
-                                    I have tried to enter IT, and still I have never had the chance to actually work in it.
-                                </p>
-                                <p>
-                                    That creates a strange tension. We are constantly told this is the future, but for many people the future
-                                    does not feel open. It feels crowded, unstable, and somehow farther away even while the technology keeps moving closer.
-                                </p>
-                            </section>
-
-                            <section class="blog-card">
-                                <span class="section-tag">🔎 Trust</span>
-                                <h2>Research got easier, and worse</h2>
-                                <p>
-                                    AI can summarize information extremely fast, but reliability and trust did not grow at the same speed.
-                                    The discipline needed to research something properly is being damaged by the constant temptation to accept quick answers.
-                                </p>
-                                <p>
-                                    When everything sounds smooth and confident, it becomes harder to tell what is solid and what is just polished output.
-                                    That is dangerous for students, engineers, and anyone who is honestly trying to learn.
-                                </p>
-                            </section>
-
-                            <section class="blog-card blog-card-wide">
-                                <span class="section-tag">⚙️ Automation</span>
-                                <h2>What automation should actually do</h2>
-                                <p>
-                                    Automation should help people protect time, attention, and dignity. It should remove repetitive work,
-                                    reduce confusion, and make real knowledge easier to reach.
-                                </p>
-                                <p>
-                                    If automation becomes only a machine for extracting more output from people, then something essential is lost,
-                                    no matter how technically impressive the system is.
-                                </p>
-                            </section>
-
-                            <section class="blog-card blog-card-wide blog-card-hope">
-                                <span class="section-tag">🌍 Hope</span>
-                                <h2>Common good over optimization</h2>
-                                <p>
-                                    I still have hope for AI. I want it to keep improving, but in a different direction, not mainly toward
-                                    effectiveness, customer growth, and endless optimization.
-                                </p>
-                                <p>
-                                    I want AI, computer science, and automation to move toward common good, honesty, and love for everyone on Earth.
-                                    That may sound idealistic, but without that direction technology becomes empty very fast.
-                                </p>
-                            </section>
-                        </div>
-                    </div>
+                    </a>
                 </article>
             </section>
         </article>

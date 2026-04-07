@@ -167,6 +167,36 @@ function setupBlogCards() {
     });
 }
 
+function setupBlogSort() {
+    const sortControl = document.getElementById("blog-sort");
+    const postList = document.querySelector(".post-list");
+
+    if (!sortControl || !postList) {
+        return;
+    }
+
+    const sortPosts = (direction) => {
+        const cards = Array.from(postList.querySelectorAll("[data-blog-card]"));
+
+        cards.sort((left, right) => {
+            const leftDate = left.dataset.published || "";
+            const rightDate = right.dataset.published || "";
+
+            return direction === "oldest"
+                ? leftDate.localeCompare(rightDate)
+                : rightDate.localeCompare(leftDate);
+        });
+
+        cards.forEach((card) => postList.appendChild(card));
+    };
+
+    sortControl.addEventListener("change", () => {
+        sortPosts(sortControl.value);
+    });
+
+    sortPosts(sortControl.value);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const theme = getPreferredTheme();
     setTheme(theme);
@@ -174,6 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupTabs();
     setupCopyButtons();
     setupBlogCards();
+    setupBlogSort();
     setupRevealAnimation();
 
     document.getElementById("darkModeToggle")?.addEventListener("click", () => {
