@@ -190,11 +190,18 @@ function setupBlogSort() {
         cards.forEach((card) => postList.appendChild(card));
     };
 
-    sortControl.addEventListener("change", () => {
-        sortPosts(sortControl.value);
+    const applyOrder = (direction) => {
+        sortControl.dataset.sortOrder = direction;
+        sortControl.textContent = direction === "oldest" ? "Oldest" : "Newest";
+        sortPosts(direction);
+    };
+
+    sortControl.addEventListener("click", () => {
+        const nextOrder = sortControl.dataset.sortOrder === "newest" ? "oldest" : "newest";
+        applyOrder(nextOrder);
     });
 
-    sortPosts(sortControl.value);
+    applyOrder(sortControl.dataset.sortOrder || "newest");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
