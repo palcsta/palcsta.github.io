@@ -332,10 +332,8 @@ const SOURCE_STYLE_ENTRIES = [
     ["coindesk.com", { emoji: "🪙", tone: "warm", label: "CoinDesk" }],
     ["cointelegraph.com", { emoji: "₿", tone: "warm", label: "Cointelegraph" }],
     ["protocol.com", { emoji: "📡", tone: "warm", label: "Protocol" }],
-    ["404media.co", { emoji: "🧪", tone: "cool", label: "404 Media" }],
     ["propublica.org", { emoji: "🔎", tone: "warm", label: "ProPublica" }],
     ["restofworld.org", { emoji: "🌏", tone: "warm", label: "Rest of World" }],
-    ["404media.co", { emoji: "🧪", tone: "cool", label: "404 Media" }],
     ["eff.org", { emoji: "🛡️", tone: "cool", label: "EFF" }],
     ["archive.org", { emoji: "🏛️", tone: "cool", label: "Internet Archive" }],
     ["wikimedia.org", { emoji: "📖", tone: "cool", label: "Wikimedia" }],
@@ -448,7 +446,11 @@ function formatRelativeTime(unixSeconds) {
     return `${days}d ago`;
 }
 
-function createHnStoryMarkup(story, index) {
+function formatShortClock(date = new Date()) {
+    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+}
+
+function createHnStoryMarkup(story) {
     const hostname = getHostname(story.url);
     const sourceStyle = deriveSourceStyle(hostname);
     const sourceName = formatSourceLabel(hostname, sourceStyle);
@@ -460,17 +462,13 @@ function createHnStoryMarkup(story, index) {
     return `
         <li class="hn-story-item">
             <a class="hn-story-link" href="${safeUrl}" target="_blank" rel="noreferrer">
-                <div class="hn-story-topline">
-                    <span class="hn-story-rank">Top ${index + 1}</span>
-                    <span class="hn-story-score">${story.score || 0} pts</span>
-                </div>
                 <div class="hn-story-title">${safeTitle}</div>
                 <div class="hn-story-bottomline">
                     <span class="hn-source-pill" data-tone="${sourceStyle.tone}">
                         <span aria-hidden="true">${sourceStyle.emoji}</span>
                         <span class="hn-source-name">${sourceName}</span>
                     </span>
-                    <span class="hn-story-domain">${hostname || "news.ycombinator.com"}</span>
+                    <span class="hn-story-score">${story.score || 0} pts</span>
                 </div>
                 <div class="hn-story-meta">${author} · ${comments} · ${formatRelativeTime(story.time)}</div>
             </a>
@@ -521,10 +519,10 @@ async function loadHackerNewsPanel() {
             throw new Error("No stories available");
         }
 
-        list.innerHTML = rankedStories.map((story, index) => createHnStoryMarkup(story, index)).join("");
-        status.textContent = `Updated ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} from the current HN front page.`;
+        list.innerHTML = rankedStories.map((story) => createHnStoryMarkup(story)).join("");
+        status.textContent = `Live HN ${formatShortClock()}`;
     } catch (error) {
-        status.textContent = "Could not load Hacker News right now.";
+        status.textContent = "Live HN";
         list.innerHTML = "";
         console.error("Failed to load Hacker News panel", error);
     }

@@ -239,31 +239,13 @@ body.dark-mode .topbar {
   backdrop-filter: blur(14px);
 }
 
-.hn-panel-header h2 {
-  margin: 14px 0 10px;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(1.8rem, 2vw, 2.3rem);
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-
-.hn-panel-header p,
-.hn-panel-status,
-.hn-story-domain,
+.hn-panel-header,
 .hn-story-meta {
   color: var(--muted);
 }
 
-.hn-panel-header p {
-  margin: 0;
-  font-size: 0.98rem;
-  line-height: 1.65;
-}
-
-.hn-panel-status {
+.hn-panel-header {
   min-height: 24px;
-  font-size: 0.92rem;
-  font-weight: 700;
 }
 
 .hn-story-list {
@@ -272,16 +254,11 @@ body.dark-mode .topbar {
   list-style: none;
   margin: 0;
   padding: 0;
-  counter-reset: hn-rank;
-}
-
-.hn-story-item {
-  counter-increment: hn-rank;
 }
 
 .hn-story-link {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   padding: 16px 18px;
   text-decoration: none;
   border-radius: 22px;
@@ -300,36 +277,12 @@ body.dark-mode .hn-story-link {
   border-color: var(--accent);
 }
 
-.hn-story-topline,
 .hn-story-bottomline {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-}
-
-.hn-story-rank {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-  font-size: 0.88rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.hn-story-rank::before {
-  content: counter(hn-rank, decimal-leading-zero);
-  display: inline-grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--surface-strong);
-  border: 1px solid var(--border);
-  color: var(--text);
-  font-family: "Space Grotesk", sans-serif;
+  flex-wrap: wrap;
 }
 
 .hn-source-pill {
@@ -387,22 +340,14 @@ body.dark-mode .hn-source-pill[data-tone="cool"] {
 .hn-story-title {
   font-family: "Space Grotesk", sans-serif;
   font-size: 1.08rem;
-  line-height: 1.18;
+  line-height: 1.24;
   letter-spacing: -0.03em;
 }
 
-.hn-story-bottomline {
-  flex-wrap: wrap;
-}
-
-.hn-story-domain,
 .hn-story-meta {
   font-size: 0.84rem;
   font-weight: 700;
-}
-
-.hn-story-domain {
-  overflow-wrap: anywhere;
+  line-height: 1.5;
 }
 
 .post-list-toolbar {
@@ -1838,11 +1783,6 @@ body.dark-mode .tab-button.active {
   .hn-story-link {
     padding: 14px 16px;
     border-radius: 18px;
-  }
-
-  .hn-story-topline {
-    align-items: flex-start;
-    flex-direction: column;
   }
 
   .post-body-grid {
