@@ -447,7 +447,7 @@ function formatRelativeTime(unixSeconds) {
 }
 
 function formatShortClock(date = new Date()) {
-    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
 }
 
 function createHnStoryMarkup(story) {
