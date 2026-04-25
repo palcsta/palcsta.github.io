@@ -227,8 +227,8 @@ body.dark-mode .topbar {
 
 .hn-panel-shell {
   display: grid;
-  gap: 18px;
-  padding: 24px;
+  gap: 14px;
+  padding: 20px;
   border-radius: calc(var(--radius) + 2px);
   border: 1px solid var(--border);
   background:
@@ -250,7 +250,7 @@ body.dark-mode .topbar {
 
 .hn-story-list {
   display: grid;
-  gap: 12px;
+  gap: 10px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -258,10 +258,10 @@ body.dark-mode .topbar {
 
 .hn-story-link {
   display: grid;
-  gap: 10px;
-  padding: 16px 18px;
+  gap: 8px;
+  padding: 12px 14px;
   text-decoration: none;
-  border-radius: 22px;
+  border-radius: 18px;
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.48);
   box-shadow: var(--shadow-soft);
@@ -281,19 +281,19 @@ body.dark-mode .hn-story-link {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .hn-source-pill {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
   max-width: 100%;
-  padding: 9px 12px;
+  padding: 7px 10px;
   border-radius: 999px;
-  font-size: 0.79rem;
+  font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.03em;
 }
@@ -329,25 +329,25 @@ body.dark-mode .hn-source-pill[data-tone="cool"] {
 
 .hn-story-score {
   flex: none;
-  padding: 8px 10px;
+  padding: 6px 9px;
   border-radius: 999px;
   background: var(--surface-strong);
   border: 1px solid var(--border);
-  font-size: 0.84rem;
+  font-size: 0.78rem;
   font-weight: 800;
 }
 
 .hn-story-title {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 1.08rem;
-  line-height: 1.24;
+  font-size: 0.98rem;
+  line-height: 1.2;
   letter-spacing: -0.03em;
 }
 
 .hn-story-meta {
-  font-size: 0.84rem;
+  font-size: 0.77rem;
   font-weight: 700;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .post-list-toolbar {
@@ -1711,7 +1711,7 @@ body.dark-mode .tab-button.active {
   }
 
   .hn-panel-shell {
-    padding: 22px;
+    padding: 18px;
   }
 
   .workflow-arrow {
@@ -1781,8 +1781,8 @@ body.dark-mode .tab-button.active {
   }
 
   .hn-story-link {
-    padding: 14px 16px;
-    border-radius: 18px;
+    padding: 11px 13px;
+    border-radius: 16px;
   }
 
   .post-body-grid {
