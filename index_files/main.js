@@ -499,9 +499,13 @@ async function loadHackerNewsPanel() {
     try {
         const ids = await fetchJson(HN_TOP_STORIES_URL);
         const storyIds = ids.slice(0, HN_STORY_SCAN_LIMIT);
-        const stories = await Promise.all(storyIds.map((id) => fetchJson(`${HN_ITEM_URL}/${id}.json`)));
+        const stories = await Promise.allSettled(
+            storyIds.map((id) => fetchJson(`${HN_ITEM_URL}/${id}.json`))
+        );
 
         const rankedStories = stories
+            .filter((result) => result.status === "fulfilled")
+            .map((result) => result.value)
             .filter((story) => story && story.type === "story" && story.title)
             .sort((left, right) => {
                 const scoreDelta = (right.score || 0) - (left.score || 0);
@@ -512,6 +516,10 @@ async function loadHackerNewsPanel() {
                 return (right.descendants || 0) - (left.descendants || 0);
             })
             .slice(0, HN_RENDER_LIMIT);
+
+        if (!rankedStories.length) {
+            throw new Error("No stories available");
+        }
 
         list.innerHTML = rankedStories.map((story, index) => createHnStoryMarkup(story, index)).join("");
         status.textContent = `Updated ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} from the current HN front page.`;

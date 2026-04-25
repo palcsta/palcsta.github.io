@@ -202,11 +202,15 @@ body.dark-mode .topbar {
 .post-list {
   display: grid;
   gap: 18px;
+  grid-column: 1;
 }
 
 .hn-panel {
   position: sticky;
   top: 116px;
+  grid-column: 2;
+  justify-self: end;
+  width: min(100%, 360px);
 }
 
 .hn-panel-shell {
@@ -1634,7 +1638,7 @@ body.dark-mode .tab-button.active {
   transform: translateY(0);
 }
 
-@media (max-width: 1120px) {
+@media (max-width: 980px) {
   .blog-hero,
   .hero,
   .split-card,
@@ -1662,8 +1666,15 @@ body.dark-mode .tab-button.active {
     grid-template-columns: 1fr;
   }
 
+  .post-list,
+  .hn-panel {
+    grid-column: 1;
+  }
+
   .hn-panel {
     position: static;
+    justify-self: stretch;
+    width: 100%;
   }
 
   .matrix-card-wide {
