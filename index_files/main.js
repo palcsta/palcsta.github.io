@@ -47,7 +47,7 @@ function setTheme(theme) {
     document.body.classList.toggle("dark-mode", isDark);
 
     if (toggle) {
-        toggle.textContent = isDark ? "Light mode" : "Dark mode";
+        toggle.textContent = isDark ? "☀️" : "🌙";
         toggle.setAttribute("aria-pressed", String(isDark));
     }
 
