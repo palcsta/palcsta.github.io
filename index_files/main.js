@@ -565,17 +565,20 @@ async function loadElectricityPrices() {
     if (!chart || !display) return;
 
     try {
+        console.log("Fetching electricity prices...");
         const response = await fetch("https://api.porssisahko.net/v2/latest-prices.json");
-        if (!response.ok) throw new Error("Failed to fetch prices");
+        if (!response.ok) throw new Error("API returned " + response.status);
         
         const data = await response.json();
-        // The API returns the latest 192 intervals (48h). 
-        // We'll show the most recent 24 hours (96 intervals) to keep it compact.
-        const recentPrices = data.prices.slice(0, 96).reverse();
+        if (!data.prices || !data.prices.length) throw new Error("Empty price data");
+
+        // Use 48 points (12 hours) if 96 is too many, but 96 should be fine.
+        const recentPrices = data.prices.slice(0, 48).reverse();
+        const priceValues = recentPrices.map(p => p.price);
         
-        const maxPrice = Math.max(...recentPrices.map(p => p.price), 1);
-        const minPrice = Math.min(...recentPrices.map(p => p.price), 0);
-        const range = maxPrice - (minPrice < 0 ? minPrice : 0);
+        const maxPrice = Math.max(...priceValues);
+        const minPrice = Math.min(...priceValues);
+        const range = (maxPrice - minPrice) || 1;
         
         const now = new Date();
         let currentPrice = null;
@@ -587,27 +590,29 @@ async function loadElectricityPrices() {
             
             if (isCurrent) currentPrice = p.price;
 
-            // Normalize height to 10-100%
-            const height = Math.max(10, ((p.price - (minPrice < 0 ? minPrice : 0)) / range) * 100);
+            const height = Math.max(12, ((p.price - minPrice) / range) * 100);
             
             return `
                 <div class="price-bar ${isCurrent ? 'is-current' : ''}" 
-                     style="height: ${height}%" 
-                     title="${start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}: ${p.price} snt">
+                     style="height: ${height.toFixed(1)}%" 
+                     title="${start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}: ${p.price.toFixed(2)} snt">
                 </div>
             `;
         }).join("");
 
         if (currentPrice !== null) {
             display.textContent = `${currentPrice.toFixed(2)} snt/kWh`;
-        } else if (recentPrices.length > 0) {
+        } else {
             display.textContent = `${recentPrices[recentPrices.length - 1].price.toFixed(2)} snt/kWh`;
         }
 
         updatedAt.textContent = `Updated ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+        console.log("Electricity prices loaded successfully.");
         
     } catch (error) {
-        display.textContent = "Price unavailable";
-        console.error("Failed to load electricity prices", error);
+        display.textContent = "Offline/Restricted";
+        console.error("Failed to load electricity prices:", error.message);
+        // If it fails, maybe clear the chart to avoid showing half-loaded state
+        chart.innerHTML = '<div style="color: var(--muted); font-size: 0.7rem; padding: 10px;">Unable to load data. Please check connection.</div>';
     }
 }
