@@ -565,11 +565,16 @@ async function loadElectricityPrices() {
     if (!chart || !display) return;
 
     try {
-        console.log("Fetching electricity prices...");
-        const response = await fetch("https://api.porssisahko.net/v2/latest-prices.json");
-        if (!response.ok) throw new Error("API returned " + response.status);
+        console.log("Fetching electricity prices via proxy...");
+        const apiUrl = "https://api.porssisahko.net/v2/latest-prices.json";
+        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`;
         
-        const data = await response.json();
+        const response = await fetch(proxyUrl);
+        if (!response.ok) throw new Error("Proxy returned " + response.status);
+        
+        const proxyData = await response.json();
+        const data = JSON.parse(proxyData.contents);
+        
         if (!data.prices || !data.prices.length) throw new Error("Empty price data");
 
         // Use 48 points (12 hours) if 96 is too many, but 96 should be fine.
