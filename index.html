@@ -37,6 +37,20 @@
     <main class="container">
         <article class="blog-layout reveal">
             <section class="post-list reveal" id="blog-list">
+                <div class="price-chart-card reveal">
+                    <div class="price-chart-header">
+                        <span class="section-tag">⚡ Electricity Prices</span>
+                        <span class="price-current-value" id="current-price-display">Loading...</span>
+                    </div>
+                    <div class="price-chart-viz" id="price-chart">
+                        <!-- Bars will be injected here -->
+                    </div>
+                    <div class="price-chart-footer">
+                        <span>Pörssisähkö (snt/kWh)</span>
+                        <span id="price-updated-at"></span>
+                    </div>
+                </div>
+
                 <div class="post-list-toolbar">
                     <button id="blog-sort" class="sort-toggle" type="button" aria-label="Toggle blog sort order" data-sort-order="newest">Newest</button>
                 </div>

@@ -538,6 +538,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupBlogSort();
     setupRevealAnimation();
     loadHackerNewsPanel();
+    loadElectricityPrices();
 
     document.getElementById("darkModeToggle")?.addEventListener("click", () => {
         const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
@@ -555,3 +556,58 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("resize", updateSessionInsights);
 });
+
+async function loadElectricityPrices() {
+    const chart = document.getElementById("price-chart");
+    const display = document.getElementById("current-price-display");
+    const updatedAt = document.getElementById("price-updated-at");
+
+    if (!chart || !display) return;
+
+    try {
+        const response = await fetch("https://api.porssisahko.net/v2/latest-prices.json");
+        if (!response.ok) throw new Error("Failed to fetch prices");
+        
+        const data = await response.json();
+        // The API returns the latest 192 intervals (48h). 
+        // We'll show the most recent 24 hours (96 intervals) to keep it compact.
+        const recentPrices = data.prices.slice(0, 96).reverse();
+        
+        const maxPrice = Math.max(...recentPrices.map(p => p.price), 1);
+        const minPrice = Math.min(...recentPrices.map(p => p.price), 0);
+        const range = maxPrice - (minPrice < 0 ? minPrice : 0);
+        
+        const now = new Date();
+        let currentPrice = null;
+
+        chart.innerHTML = recentPrices.map(p => {
+            const start = new Date(p.startDate);
+            const end = new Date(p.endDate);
+            const isCurrent = now >= start && now <= end;
+            
+            if (isCurrent) currentPrice = p.price;
+
+            // Normalize height to 10-100%
+            const height = Math.max(10, ((p.price - (minPrice < 0 ? minPrice : 0)) / range) * 100);
+            
+            return `
+                <div class="price-bar ${isCurrent ? 'is-current' : ''}" 
+                     style="height: ${height}%" 
+                     title="${start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}: ${p.price} snt">
+                </div>
+            `;
+        }).join("");
+
+        if (currentPrice !== null) {
+            display.textContent = `${currentPrice.toFixed(2)} snt/kWh`;
+        } else if (recentPrices.length > 0) {
+            display.textContent = `${recentPrices[recentPrices.length - 1].price.toFixed(2)} snt/kWh`;
+        }
+
+        updatedAt.textContent = `Updated ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+        
+    } catch (error) {
+        display.textContent = "Price unavailable";
+        console.error("Failed to load electricity prices", error);
+    }
+}

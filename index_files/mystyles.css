@@ -1819,3 +1819,63 @@ body.dark-mode .tab-button.active {
     width: 100%;
   }
 }
+
+.price-chart-card {
+  padding: 20px;
+  margin-bottom: 12px;
+  background: var(--surface);
+  backdrop-filter: blur(14px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+}
+
+.price-chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.price-current-value {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--accent);
+}
+
+.price-chart-viz {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 80px;
+  padding-bottom: 4px;
+}
+
+.price-bar {
+  flex: 1;
+  background: var(--accent);
+  opacity: 0.6;
+  border-radius: 99px 99px 2px 2px;
+  transition: opacity 200ms ease, transform 200ms ease;
+  position: relative;
+}
+
+.price-bar:hover {
+  opacity: 1;
+  transform: scaleY(1.05);
+}
+
+.price-bar.is-current {
+  background: #c89d54;
+  opacity: 1;
+}
+
+.price-chart-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+}
