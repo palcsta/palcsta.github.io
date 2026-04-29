@@ -596,7 +596,7 @@ async function loadElectricityPrices() {
             return `
                 <div class="price-bar ${isCurrent ? 'is-current' : ''}" 
                      style="height: ${height.toFixed(1)}%" 
-                     title="${start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}: ${p.price.toFixed(2)} snt">
+                     title="${start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${end.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}: ${p.price.toFixed(2)} snt">
                 </div>
             `;
         }).join("");
