@@ -1879,3 +1879,27 @@ body.dark-mode .tab-button.active {
   font-weight: 700;
   color: var(--muted);
 }
+
+.price-chart-viz {
+  position: relative;
+}
+
+.price-max-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1px dashed var(--accent);
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.price-max-line span {
+  position: absolute;
+  right: 0;
+  top: -14px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--accent);
+}

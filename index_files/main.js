@@ -584,7 +584,7 @@ async function loadElectricityPrices() {
         const now = new Date();
         let currentPrice = null;
 
-        chart.innerHTML = recentPrices.map(p => {
+        const barsHtml = recentPrices.map(p => {
             const start = new Date(p.startDate);
             const end = new Date(p.endDate);
             const isCurrent = now >= start && now <= end;
@@ -601,10 +601,18 @@ async function loadElectricityPrices() {
             `;
         }).join("");
 
+        // Add a horizontal line for the max price
+        chart.innerHTML = `
+            ${barsHtml}
+            <div class="price-max-line" style="bottom: 100%">
+                <span>${maxPrice.toFixed(1)}</span>
+            </div>
+        `;
+
         if (currentPrice !== null) {
             display.textContent = `${currentPrice.toFixed(2)} snt/kWh`;
         } else {
-            // Fallback to the latest price in the list if current time isn't found
+            // Find the closest price if "now" is outside the loaded range
             display.textContent = `${data.prices[0].price.toFixed(2)} snt/kWh`;
         }
 
