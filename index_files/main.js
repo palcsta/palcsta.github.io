@@ -565,19 +565,28 @@ async function loadElectricityPrices() {
     if (!chart || !display) return;
 
     try {
-        console.log("Fetching electricity prices via proxy...");
+        console.log("Fetching electricity prices...");
         const apiUrl = "https://api.porssisahko.net/v2/latest-prices.json";
-        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`;
+        
+        // Try AllOrigins again but with a more robust parser
+        const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}&timestamp=${Date.now()}`;
         
         const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error("Proxy returned " + response.status);
+        if (!response.ok) throw new Error("Proxy error: " + response.status);
         
         const proxyData = await response.json();
-        const data = JSON.parse(proxyData.contents);
+        if (!proxyData || !proxyData.contents) throw new Error("Invalid proxy response");
         
-        if (!data.prices || !data.prices.length) throw new Error("Empty price data");
+        let data;
+        try {
+            data = JSON.parse(proxyData.contents);
+        } catch (e) {
+            throw new Error("Failed to parse API JSON");
+        }
 
-        // Use 48 points (12 hours) if 96 is too many, but 96 should be fine.
+        if (!data || !data.prices || !data.prices.length) throw new Error("Empty price data");
+
+        // Use 48 points (12 hours)
         const recentPrices = data.prices.slice(0, 48).reverse();
         const priceValues = recentPrices.map(p => p.price);
         
@@ -612,12 +621,11 @@ async function loadElectricityPrices() {
         }
 
         updatedAt.textContent = `Updated ${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
-        console.log("Electricity prices loaded successfully.");
+        console.log("Electricity prices loaded.");
         
     } catch (error) {
-        display.textContent = "Offline/Restricted";
-        console.error("Failed to load electricity prices:", error.message);
-        // If it fails, maybe clear the chart to avoid showing half-loaded state
-        chart.innerHTML = '<div style="color: var(--muted); font-size: 0.7rem; padding: 10px;">Unable to load data. Please check connection.</div>';
+        display.textContent = "Data Error";
+        console.error("Electricity Price Error:", error.message);
+        chart.innerHTML = `<div style="color: var(--muted); font-size: 0.65rem; padding: 10px;">${error.message}</div>`;
     }
 }
