@@ -125,8 +125,8 @@ function setupCopyButtons() {
     });
 }
 
-function setupRevealAnimation() {
-    const nodes = document.querySelectorAll(".reveal");
+function setupRevealAnimation(container = document) {
+    const nodes = container.querySelectorAll(".reveal");
 
     if (!("IntersectionObserver" in window)) {
         nodes.forEach((node) => node.classList.add("is-visible"));
@@ -149,6 +149,8 @@ function setupBlogCards() {
     const cards = document.querySelectorAll("[data-blog-card]");
 
     cards.forEach((card) => {
+        if (card.dataset.initialized) return;
+        
         const toggle = card.querySelector(".post-toggle");
         const hint = card.querySelector(".post-hint");
 
@@ -164,6 +166,8 @@ function setupBlogCards() {
                 hint.textContent = isOpen ? "Close post" : "Open post";
             }
         });
+        
+        card.dataset.initialized = "true";
     });
 }
 
@@ -631,6 +635,7 @@ async function loadBlogPosts() {
         // Re-initialize blog cards and sort
         setupBlogCards();
         setupBlogSort();
+        setupRevealAnimation(container);
         
     } catch (error) {
         console.error("Failed to load blogs:", error);
