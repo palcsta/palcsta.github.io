@@ -511,13 +511,19 @@ async function loadHackerNewsPanel() {
 
         let rankedStories = stories
             .filter((result) => result.status === "fulfilled")
-            .map((result) => result.value)
+            .map((result, index) => {
+                const story = result.value;
+                if (story) story.originalIndex = index; // Store original rank
+                return story;
+            })
             .filter((story) => story && story.type === "story" && story.title);
 
         if (sortMode === "points") {
             rankedStories.sort((left, right) => (right.score || 0) - (left.score || 0));
+        } else {
+            // Sort back to original HN rank
+            rankedStories.sort((left, right) => left.originalIndex - right.originalIndex);
         }
-        // If mode is 'top', we keep the order from topstories.json (default HN rank)
 
         rankedStories = rankedStories.slice(0, HN_RENDER_LIMIT);
 
