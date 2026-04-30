@@ -496,6 +496,11 @@ async function loadHackerNewsPanel() {
     }
 
     const sortMode = sortBtn ? sortBtn.dataset.sort : "top";
+    
+    // Show loading state
+    if (sortBtn) sortBtn.style.opacity = "0.5";
+    const originalStatus = status.textContent;
+    status.textContent = "Loading...";
 
     try {
         const ids = await fetchJson(HN_TOP_STORIES_URL);
@@ -504,25 +509,17 @@ async function loadHackerNewsPanel() {
             storyIds.map((id) => fetchJson(`${HN_ITEM_URL}/${id}.json`))
         );
 
-        const rankedStories = stories
+        let rankedStories = stories
             .filter((result) => result.status === "fulfilled")
             .map((result) => result.value)
-            .filter((story) => story && story.type === "story" && story.title)
-            .sort((left, right) => {
-                if (sortMode === "top") {
-                    // Default HN ranking (implied by the order of IDs returned by topstories.json)
-                    // But if we want to sort the scan window:
-                    const scoreDelta = (right.score || 0) - (left.score || 0);
-                    if (scoreDelta !== 0) {
-                        return scoreDelta;
-                    }
-                    return (right.descendants || 0) - (left.descendants || 0);
-                } else {
-                    // Sort strictly by points
-                    return (right.score || 0) - (left.score || 0);
-                }
-            })
-            .slice(0, HN_RENDER_LIMIT);
+            .filter((story) => story && story.type === "story" && story.title);
+
+        if (sortMode === "points") {
+            rankedStories.sort((left, right) => (right.score || 0) - (left.score || 0));
+        }
+        // If mode is 'top', we keep the order from topstories.json (default HN rank)
+
+        rankedStories = rankedStories.slice(0, HN_RENDER_LIMIT);
 
         if (!rankedStories.length) {
             throw new Error("No stories available");
@@ -534,6 +531,8 @@ async function loadHackerNewsPanel() {
         status.textContent = "Live HN";
         list.innerHTML = "";
         console.error("Failed to load Hacker News panel", error);
+    } finally {
+        if (sortBtn) sortBtn.style.opacity = "1";
     }
 }
 
