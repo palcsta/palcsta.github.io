@@ -489,10 +489,13 @@ async function fetchJson(url) {
 async function loadHackerNewsPanel() {
     const list = document.getElementById("hn-story-list");
     const status = document.getElementById("hn-status");
+    const sortBtn = document.getElementById("hn-sort-btn");
 
     if (!list || !status) {
         return;
     }
+
+    const sortMode = sortBtn ? sortBtn.dataset.sort : "top";
 
     try {
         const ids = await fetchJson(HN_TOP_STORIES_URL);
@@ -506,12 +509,18 @@ async function loadHackerNewsPanel() {
             .map((result) => result.value)
             .filter((story) => story && story.type === "story" && story.title)
             .sort((left, right) => {
-                const scoreDelta = (right.score || 0) - (left.score || 0);
-                if (scoreDelta !== 0) {
-                    return scoreDelta;
+                if (sortMode === "top") {
+                    // Default HN ranking (implied by the order of IDs returned by topstories.json)
+                    // But if we want to sort the scan window:
+                    const scoreDelta = (right.score || 0) - (left.score || 0);
+                    if (scoreDelta !== 0) {
+                        return scoreDelta;
+                    }
+                    return (right.descendants || 0) - (left.descendants || 0);
+                } else {
+                    // Sort strictly by points
+                    return (right.score || 0) - (left.score || 0);
                 }
-
-                return (right.descendants || 0) - (left.descendants || 0);
             })
             .slice(0, HN_RENDER_LIMIT);
 
@@ -528,6 +537,22 @@ async function loadHackerNewsPanel() {
     }
 }
 
+function setupHnSort() {
+    const sortBtn = document.getElementById("hn-sort-btn");
+    if (!sortBtn) return;
+
+    sortBtn.addEventListener("click", () => {
+        if (sortBtn.dataset.sort === "top") {
+            sortBtn.dataset.sort = "points";
+            sortBtn.textContent = "Points";
+        } else {
+            sortBtn.dataset.sort = "top";
+            sortBtn.textContent = "Top";
+        }
+        loadHackerNewsPanel();
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const theme = getPreferredTheme();
     setTheme(theme);
@@ -537,6 +562,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupBlogCards();
     setupBlogSort();
     setupRevealAnimation();
+    setupHnSort();
     loadHackerNewsPanel();
     loadElectricityPrices();
 
