@@ -1,0 +1,70 @@
+name: Generate Blog List
+
+on:
+  push:
+    paths:
+      - 'blogs/*.md'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-list:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Generate list.json
+        run: |
+          python3 -c '
+          import os
+          import json
+          import re
+
+          blog_dir = "blogs"
+          posts = []
+
+          for filename in os.listdir(blog_dir):
+              if filename.endswith(".md"):
+                  filepath = os.path.join(blog_dir, filename)
+                  with open(filepath, "r", encoding="utf-8") as f:
+                      content = f.read()
+                      
+                      # Extract frontmatter
+                      match = re.search(r"^---\n(.*?)\n---", content, re.DOTALL)
+                      if match:
+                          frontmatter = match.group(1)
+                          meta = {}
+                          for line in frontmatter.split("\n"):
+                              if ":" in line:
+                                  k, v = line.split(":", 1)
+                                  meta[k.strip()] = v.strip()
+                          
+                          posts.append({
+                              "id": filename.replace(".md", ""),
+                              "title": meta.get("title", "Untitled"),
+                              "date": meta.get("date", ""),
+                              "summary": meta.get("summary", ""),
+                              "file": f"blogs/{filename}"
+                          })
+
+          # Sort by date descending
+          posts.sort(key=lambda x: x["date"], reverse=True)
+
+          with open(os.path.join(blog_dir, "list.json"), "w", encoding="utf-8") as f:
+              json.dump(posts, f, indent=4)
+          '
+
+      - name: Commit and push
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add blogs/list.json
+          git commit -m "Update blog list index [skip ci]" || exit 0
+          git push

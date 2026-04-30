@@ -569,14 +569,82 @@ function setupHnSort() {
     });
 }
 
+async function loadBlogPosts() {
+    const container = document.getElementById("dynamic-blog-list");
+    if (!container) return;
+
+    try {
+        const response = await fetch("./blogs/list.json");
+        if (!response.ok) throw new Error("Blog list not available");
+        const blogList = await response.json();
+
+        const postsHtml = await Promise.all(blogList.map(async (meta) => {
+            const res = await fetch(meta.file);
+            const md = await res.text();
+            
+            // Basic parser for sections and frontmatter
+            const sections = md.split(/\n# /).filter(Boolean);
+            const contentSections = sections.slice(1).map(section => {
+                const lines = section.split("\n");
+                const headerLine = lines[0];
+                const isWide = headerLine.includes("(wide)");
+                const isHope = headerLine.includes("hope");
+                const tagAndTitle = headerLine.replace(/\(.*\)/, "").trim();
+                const [tag, ...titleParts] = tagAndTitle.split(" ");
+                const title = titleParts.join(" ");
+                
+                const rest = lines.slice(1).join("\n");
+                const bodyHtml = marked.parse(rest);
+                const h2Match = bodyHtml.match(/<h2>(.*?)<\/h2>/);
+                const actualTitle = h2Match ? h2Match[1] : title;
+                const cleanBody = bodyHtml.replace(/<h2>.*?<\/h2>/, "");
+
+                return `
+                    <section class="blog-card ${isWide ? 'blog-card-wide' : ''} ${isHope ? 'blog-card-hope' : ''}">
+                        <span class="section-tag">${tag}</span>
+                        <h2>${actualTitle}</h2>
+                        ${cleanBody}
+                    </section>
+                `;
+            }).join("");
+
+            return `
+                <article class="post-preview" data-blog-card data-published="${meta.date}">
+                    <button class="post-toggle" type="button" aria-expanded="false">
+                        <span class="post-meta">${meta.date} · Personal blog</span>
+                        <span class="post-title">${meta.title}</span>
+                        <span class="post-summary">${meta.summary}</span>
+                        <span class="post-hint">Open post</span>
+                    </button>
+
+                    <div class="post-body">
+                        <div class="blog-grid post-body-grid">
+                            ${contentSections}
+                        </div>
+                    </div>
+                </article>
+            `;
+        }));
+
+        container.innerHTML = postsHtml.join("");
+        
+        // Re-initialize blog cards and sort
+        setupBlogCards();
+        setupBlogSort();
+        
+    } catch (error) {
+        console.error("Failed to load blogs:", error);
+        container.innerHTML = `<p style="padding: 20px; color: var(--muted);">Failed to load blog posts. Please try again later.</p>`;
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const theme = getPreferredTheme();
     setTheme(theme);
     updateSessionInsights();
     setupTabs();
     setupCopyButtons();
-    setupBlogCards();
-    setupBlogSort();
+    loadBlogPosts();
     setupRevealAnimation();
     setupHnSort();
     loadHackerNewsPanel();
