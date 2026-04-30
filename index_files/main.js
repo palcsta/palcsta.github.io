@@ -573,15 +573,29 @@ async function loadElectricityPrices() {
         const data = await response.json();
         if (!data || !data.prices || !data.prices.length) throw new Error("Empty price data");
 
-        // Use 48 points (12 hours) for the chart
-        const recentPrices = data.prices.slice(0, 48).reverse();
+        const now = new Date();
+        
+        // Find current price index in the full list
+        const currentIndex = data.prices.findIndex(p => {
+            const start = new Date(p.startDate);
+            const end = new Date(p.endDate);
+            return now >= start && now <= end;
+        });
+
+        // Determine which 48 points to show
+        let startIndex = 0;
+        if (currentIndex !== -1) {
+            // Show 12 points (3h) of history and 36 points (9h) of future if possible
+            startIndex = Math.max(0, currentIndex - 36);
+        }
+        
+        const recentPrices = data.prices.slice(startIndex, startIndex + 48).reverse();
         const priceValues = recentPrices.map(p => p.price);
         
         const maxPrice = Math.max(...priceValues);
         const minPrice = Math.min(...priceValues);
         const range = (maxPrice - minPrice) || 1;
         
-        const now = new Date();
         let currentPrice = null;
 
         const barsHtml = recentPrices.map(p => {
@@ -609,14 +623,18 @@ async function loadElectricityPrices() {
             </div>
         `;
 
+        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+
         if (currentPrice !== null) {
-            display.textContent = `${currentPrice.toFixed(2)} snt/kWh`;
+            display.textContent = `${currentPrice.toFixed(2)} ${timeStr}`;
+        } else if (currentIndex !== -1) {
+            display.textContent = `${data.prices[currentIndex].price.toFixed(2)} ${timeStr}`;
         } else {
-            // Find the closest price if "now" is outside the loaded range
-            display.textContent = `${data.prices[0].price.toFixed(2)} snt/kWh`;
+            // Fallback to the most recent price in data (usually the latest one)
+            display.textContent = `${data.prices[0].price.toFixed(2)} ${timeStr}`;
         }
 
-        updatedAt.textContent = `Pörssisähkö Live`;
+        updatedAt.textContent = "";
         
     } catch (error) {
         display.textContent = "Data Updating";
