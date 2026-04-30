@@ -570,6 +570,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setupHnSort();
     loadHackerNewsPanel();
     loadElectricityPrices();
+    
+    // Refresh electricity prices every minute to catch interval changes
+    setInterval(loadElectricityPrices, 60000);
 
     document.getElementById("darkModeToggle")?.addEventListener("click", () => {
         const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
@@ -654,7 +657,11 @@ async function loadElectricityPrices() {
             </div>
         `;
 
-        const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+        let displayTime = now;
+        if (currentIndex !== -1) {
+            displayTime = new Date(data.prices[currentIndex].startDate);
+        }
+        const timeStr = displayTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
 
         if (currentPrice !== null) {
             display.textContent = `${currentPrice.toFixed(2)} ${timeStr}`;
