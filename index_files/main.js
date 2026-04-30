@@ -486,6 +486,8 @@ async function fetchJson(url) {
     return response.json();
 }
 
+let cachedHnStories = null;
+
 async function loadHackerNewsPanel() {
     const list = document.getElementById("hn-story-list");
     const status = document.getElementById("hn-status");
@@ -495,44 +497,53 @@ async function loadHackerNewsPanel() {
         return;
     }
 
-    const sortMode = sortBtn ? sortBtn.dataset.sort : "top";
+    const sortMode = sortBtn ? sortBtn.dataset.sort : "points";
     
-    // Show loading state
+    // Helper to render the stories
+    const renderStories = (stories) => {
+        let rankedStories = [...stories];
+        if (sortMode === "points") {
+            rankedStories.sort((left, right) => (right.score || 0) - (left.score || 0));
+        } else {
+            rankedStories.sort((left, right) => left.originalIndex - right.originalIndex);
+        }
+        
+        rankedStories = rankedStories.slice(0, HN_RENDER_LIMIT);
+        list.innerHTML = rankedStories.map((story) => createHnStoryMarkup(story)).join("");
+        status.textContent = `Live HN ${formatShortClock()}`;
+    };
+
+    // If we have cached stories, render them immediately (instant sort)
+    if (cachedHnStories) {
+        renderStories(cachedHnStories);
+        return;
+    }
+
+    // Otherwise, fetch them
     if (sortBtn) sortBtn.style.opacity = "0.5";
-    const originalStatus = status.textContent;
     status.textContent = "Loading...";
 
     try {
         const ids = await fetchJson(HN_TOP_STORIES_URL);
         const storyIds = ids.slice(0, HN_STORY_SCAN_LIMIT);
-        const stories = await Promise.allSettled(
+        const storiesResults = await Promise.allSettled(
             storyIds.map((id) => fetchJson(`${HN_ITEM_URL}/${id}.json`))
         );
 
-        let rankedStories = stories
+        cachedHnStories = storiesResults
             .filter((result) => result.status === "fulfilled")
             .map((result, index) => {
                 const story = result.value;
-                if (story) story.originalIndex = index; // Store original rank
+                if (story) story.originalIndex = index;
                 return story;
             })
             .filter((story) => story && story.type === "story" && story.title);
 
-        if (sortMode === "points") {
-            rankedStories.sort((left, right) => (right.score || 0) - (left.score || 0));
-        } else {
-            // Sort back to original HN rank
-            rankedStories.sort((left, right) => left.originalIndex - right.originalIndex);
-        }
-
-        rankedStories = rankedStories.slice(0, HN_RENDER_LIMIT);
-
-        if (!rankedStories.length) {
+        if (!cachedHnStories.length) {
             throw new Error("No stories available");
         }
 
-        list.innerHTML = rankedStories.map((story) => createHnStoryMarkup(story)).join("");
-        status.textContent = `Live HN ${formatShortClock()}`;
+        renderStories(cachedHnStories);
     } catch (error) {
         status.textContent = "Live HN";
         list.innerHTML = "";
