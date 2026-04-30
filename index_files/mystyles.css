@@ -1935,3 +1935,25 @@ body.dark-mode .tab-button.active {
   font-weight: 800;
   color: var(--accent);
 }
+
+.price-hour-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  border-left: 1px dashed var(--accent);
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.price-hour-label {
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  transform: translateX(-50%);
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: var(--muted);
+  white-space: nowrap;
+}

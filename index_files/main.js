@@ -660,9 +660,23 @@ async function loadElectricityPrices() {
             `;
         }).join("");
 
-        // Add a horizontal line for the max price
+        const markersHtml = recentPrices.map((p, index) => {
+            const start = new Date(p.startDate);
+            if (start.getMinutes() === 0) {
+                const leftPercent = (index / recentPrices.length) * 100;
+                return `
+                    <div class="price-hour-marker" style="left: ${leftPercent.toFixed(1)}%">
+                        <span class="price-hour-label">${start.getHours()}</span>
+                    </div>
+                `;
+            }
+            return "";
+        }).join("");
+
+        // Add a horizontal line for the max price and vertical hour markers
         chart.innerHTML = `
             ${barsHtml}
+            ${markersHtml}
             <div class="price-max-line" style="bottom: 100%">
                 <span>${maxPrice.toFixed(1)}</span>
             </div>
