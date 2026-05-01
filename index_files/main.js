@@ -454,6 +454,20 @@ function formatShortClock(date = new Date()) {
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
 }
 
+function getWeatherIcon(code) {
+    // WMO Weather interpretation codes (WW)
+    if (code === 0) return "☀️";
+    if (code <= 3) return "🌤️";
+    if (code <= 48) return "☁️";
+    if (code <= 57) return "🌦️";
+    if (code <= 67) return "🌧️";
+    if (code <= 77) return "❄️";
+    if (code <= 82) return "🌧️";
+    if (code <= 86) return "❄️";
+    if (code <= 99) return "⛈️";
+    return "🌡️";
+}
+
 function createHnStoryMarkup(story) {
     const hostname = getHostname(story.url);
     const sourceStyle = deriveSourceStyle(hostname);
@@ -677,6 +691,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadElectricityPrices() {
     const chart = document.getElementById("price-chart");
+    const weatherRow = document.getElementById("weather-row");
     const display = document.getElementById("current-price-display");
     const updatedAt = document.getElementById("price-updated-at");
 
@@ -690,6 +705,17 @@ async function loadElectricityPrices() {
         
         const data = await response.json();
         if (!data || !data.prices || !data.prices.length) throw new Error("Empty price data");
+
+        // Fetch weather for Oitti, Hausjärvi (60.785, 24.832)
+        let weatherData = null;
+        try {
+            const weatherRes = await fetch("https://api.open-meteo.com/v1/forecast?latitude=60.785&longitude=24.832&hourly=temperature_2m,weathercode&timezone=auto&forecast_days=2");
+            if (weatherRes.ok) {
+                weatherData = await weatherRes.json();
+            }
+        } catch (we) {
+            console.error("Weather fetch failed:", we);
+        }
 
         const now = new Date();
         
@@ -745,6 +771,30 @@ async function loadElectricityPrices() {
             }
             return "";
         }).join("");
+
+        // Add weather items
+        if (weatherRow && weatherData) {
+            weatherRow.innerHTML = recentPrices.map(p => {
+                const start = new Date(p.startDate);
+                // Only show weather every hour (at :00)
+                if (start.getMinutes() === 0) {
+                    const timeIso = start.toISOString().substring(0, 14) + "00";
+                    const wIndex = weatherData.hourly.time.findIndex(t => t.startsWith(timeIso.substring(0, 13)));
+                    
+                    if (wIndex !== -1) {
+                        const temp = weatherData.hourly.temperature_2m[wIndex];
+                        const code = weatherData.hourly.weathercode[wIndex];
+                        return `
+                            <div class="weather-item">
+                                <span class="weather-icon" title="Weather code: ${code}">${getWeatherIcon(code)}</span>
+                                <span class="weather-temp">${Math.round(temp)}°</span>
+                            </div>
+                        `;
+                    }
+                }
+                return `<div class="weather-item" style="visibility: hidden;"></div>`;
+            }).join("");
+        }
 
         // Add a horizontal line for the max price and vertical hour markers
         chart.innerHTML = `
