@@ -1906,8 +1906,8 @@ body.dark-mode .tab-button.active {
 .weather-chart-row {
   display: flex;
   gap: 3px;
-  margin-top: 4px;
-  padding-bottom: 20px; /* Space for hour labels */
+  margin-top: 18px; /* Increased to avoid overlap with hour labels */
+  padding-bottom: 4px;
   position: relative;
 }
 

@@ -778,8 +778,14 @@ async function loadElectricityPrices() {
                 const start = new Date(p.startDate);
                 // Only show weather every hour (at :00)
                 if (start.getMinutes() === 0) {
-                    const timeIso = start.toISOString().substring(0, 14) + "00";
-                    const wIndex = weatherData.hourly.time.findIndex(t => t.startsWith(timeIso.substring(0, 13)));
+                    // Format local date string to match Open-Meteo's "YYYY-MM-DDTHH:00" format
+                    const year = start.getFullYear();
+                    const month = String(start.getMonth() + 1).padStart(2, '0');
+                    const day = String(start.getDate()).padStart(2, '0');
+                    const hour = String(start.getHours()).padStart(2, '0');
+                    const localIso = `${year}-${month}-${day}T${hour}:00`;
+                    
+                    const wIndex = weatherData.hourly.time.indexOf(localIso);
                     
                     if (wIndex !== -1) {
                         const temp = weatherData.hourly.temperature_2m[wIndex];
