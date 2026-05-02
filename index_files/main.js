@@ -866,7 +866,7 @@ async function loadRandomQuote() {
     if (!container || !textElem || !authorElem) return;
 
     try {
-        const response = await fetch("./christian_quotes.json");
+        const response = await fetch("./jesus_quotes.json");
         if (!response.ok) throw new Error("Quotes data not found");
         
         const quotes = await response.json();
