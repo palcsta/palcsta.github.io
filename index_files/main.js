@@ -726,12 +726,19 @@ async function loadElectricityPrices() {
             return now >= start && now <= end;
         });
 
-        // Determine which 48 points to show (Current as leftmost)
+        // Determine which 48 points to show (Try to keep current as leftmost, but always show 48 points)
         let sliceStart = 0;
-        let sliceEnd = currentIndex + 1;
+        let sliceEnd = 48;
         if (currentIndex !== -1) {
-            // We want 'currentIndex' to be the last element in the slice so it becomes leftmost after reverse
-            sliceStart = Math.max(0, currentIndex - 47);
+            // End of slice should be currentIndex + 1 to make currentIndex the last element (leftmost after reverse)
+            // But we must ensure the slice has 48 elements.
+            sliceEnd = Math.min(data.prices.length, currentIndex + 1);
+            sliceStart = Math.max(0, sliceEnd - 48);
+            
+            // Adjust if we have less than 48 elements but could have more by shifting the window
+            if (sliceEnd - sliceStart < 48 && sliceEnd < data.prices.length) {
+                sliceEnd = Math.min(data.prices.length, sliceStart + 48);
+            }
         }
         
         const recentPrices = data.prices.slice(sliceStart, sliceEnd).reverse();
@@ -749,12 +756,19 @@ async function loadElectricityPrices() {
             const isCurrent = now >= start && now <= end;
             const isNegative = p.price <= 0;
             
+            let colorClass = "price-green";
+            if (p.price > 25) colorClass = "price-blue";
+            else if (p.price > 20) colorClass = "price-purple";
+            else if (p.price > 15) colorClass = "price-red";
+            else if (p.price > 10) colorClass = "price-orange";
+            else if (p.price > 5) colorClass = "price-yellow";
+            
             if (isCurrent) currentPrice = p.price;
 
             const height = Math.max(12, ((p.price - minPrice) / range) * 100);
             
             return `
-                <div class="price-bar ${isCurrent ? 'is-current' : ''} ${isNegative ? 'is-negative' : ''}" 
+                <div class="price-bar ${isCurrent ? 'is-current' : ''} ${isNegative ? 'is-negative' : ''} ${colorClass}" 
                      style="height: ${height.toFixed(1)}%" 
                      title="${start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${end.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}: ${p.price.toFixed(2)} snt">
                 </div>
