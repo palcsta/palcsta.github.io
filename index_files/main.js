@@ -746,13 +746,14 @@ async function loadElectricityPrices() {
             const start = new Date(p.startDate);
             const end = new Date(p.endDate);
             const isCurrent = now >= start && now <= end;
+            const isNegative = p.price <= 0;
             
             if (isCurrent) currentPrice = p.price;
 
             const height = Math.max(12, ((p.price - minPrice) / range) * 100);
             
             return `
-                <div class="price-bar ${isCurrent ? 'is-current' : ''}" 
+                <div class="price-bar ${isCurrent ? 'is-current' : ''} ${isNegative ? 'is-negative' : ''}" 
                      style="height: ${height.toFixed(1)}%" 
                      title="${start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${end.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}: ${p.price.toFixed(2)} snt">
                 </div>

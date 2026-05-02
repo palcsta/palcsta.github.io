@@ -1903,6 +1903,12 @@ body.dark-mode .tab-button.active {
   opacity: 1;
 }
 
+.price-bar.is-negative {
+  background: transparent;
+  border: 1px dashed var(--accent);
+  opacity: 0.4;
+}
+
 .weather-chart-row {
   display: flex;
   gap: 3px;
