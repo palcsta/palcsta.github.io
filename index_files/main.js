@@ -755,13 +755,15 @@ async function loadElectricityPrices() {
             console.error("Weather fetch failed:", we);
         }
 
-        // Determine which 44 points to show (11 hours of 15min data)
-        // Since data is newest-first (descending time), index 0 is newest.
-        // We want the chart to start with the current index (leftmost), so we take 44 items.
+        // Determine which 48 points to show (12 hours of 15min data)
+        // data.prices is newest-first (descending time).
+        // Slice starting from currentIndex (current time) to currentIndex + 48 (12 hours forward/past).
+        // Since data is newest-first, index 0 is the newest.
         let sliceStart = currentIndex;
-        let sliceEnd = Math.min(data.prices.length, sliceStart + 44);
+        let sliceEnd = Math.min(data.prices.length, sliceStart + 48);
         
-        const recentPrices = data.prices.slice(sliceStart, sliceEnd).reverse();
+        // Remove .reverse() so the leftmost bar is the newest (current) price.
+        const recentPrices = data.prices.slice(sliceStart, sliceEnd);
         const priceValues = recentPrices.map(p => p.price);
         
         const maxPrice = Math.max(...priceValues);
