@@ -248,11 +248,18 @@ body.dark-mode .topbar {
   min-height: 24px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
   margin-bottom: 16px;
 }
 
-.hn-sort-btn {
+.hn-panel-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hn-sort-btn, .hn-refresh-btn {
   background: var(--surface-strong);
   border: 1px solid var(--border);
   color: var(--muted);
@@ -268,7 +275,13 @@ body.dark-mode .topbar {
   box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
-.hn-sort-btn:hover {
+.hn-refresh-btn {
+  padding: 4px 6px;
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.hn-sort-btn:hover, .hn-refresh-btn:hover {
   background: var(--accent-soft);
   color: var(--accent);
   border-color: var(--accent);
@@ -276,7 +289,7 @@ body.dark-mode .topbar {
   box-shadow: 0 4px 12px var(--accent-soft);
 }
 
-.hn-sort-btn:active {
+.hn-sort-btn:active, .hn-refresh-btn:active {
   transform: translateY(0);
 }
 
@@ -1899,15 +1912,22 @@ body.dark-mode .tab-button.active {
 }
 
 .price-bar.is-current {
-  background: #c89d54;
+  background: #c89d54 !important;
   opacity: 1;
 }
 
 .price-bar.is-negative {
-  background: transparent;
+  background: transparent !important;
   border: 1px dashed var(--accent);
   opacity: 0.4;
 }
+
+.price-bar.price-green { background: #10b981; }
+.price-bar.price-yellow { background: #f59e0b; }
+.price-bar.price-orange { background: #f97316; }
+.price-bar.price-red { background: #ef4444; }
+.price-bar.price-purple { background: #8b5cf6; }
+.price-bar.price-blue { background: #3b82f6; }
 
 .weather-chart-row {
   display: flex;

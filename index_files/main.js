@@ -506,13 +506,17 @@ async function fetchJson(url) {
 
 let cachedHnStories = null;
 
-async function loadHackerNewsPanel() {
+async function loadHackerNewsPanel(forceRefresh = false) {
     const list = document.getElementById("hn-story-list");
     const status = document.getElementById("hn-status");
     const sortBtn = document.getElementById("hn-sort-btn");
 
     if (!list || !status) {
         return;
+    }
+
+    if (forceRefresh) {
+        cachedHnStories = null;
     }
 
     const sortMode = sortBtn ? sortBtn.dataset.sort : "points";
@@ -571,20 +575,28 @@ async function loadHackerNewsPanel() {
     }
 }
 
-function setupHnSort() {
+function setupHnControls() {
     const sortBtn = document.getElementById("hn-sort-btn");
-    if (!sortBtn) return;
+    const refreshBtn = document.getElementById("hn-refresh-btn");
 
-    sortBtn.addEventListener("click", () => {
-        if (sortBtn.dataset.sort === "top") {
-            sortBtn.dataset.sort = "points";
-            sortBtn.textContent = "Points";
-        } else {
-            sortBtn.dataset.sort = "top";
-            sortBtn.textContent = "Top";
-        }
-        loadHackerNewsPanel();
-    });
+    if (sortBtn) {
+        sortBtn.addEventListener("click", () => {
+            if (sortBtn.dataset.sort === "top") {
+                sortBtn.dataset.sort = "points";
+                sortBtn.textContent = "Points";
+            } else {
+                sortBtn.dataset.sort = "top";
+                sortBtn.textContent = "Top";
+            }
+            loadHackerNewsPanel();
+        });
+    }
+
+    if (refreshBtn) {
+        refreshBtn.addEventListener("click", () => {
+            loadHackerNewsPanel(true);
+        });
+    }
 }
 
 async function loadBlogPosts() {
@@ -665,7 +677,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupCopyButtons();
     loadBlogPosts();
     setupRevealAnimation();
-    setupHnSort();
+    setupHnControls();
     loadHackerNewsPanel();
     loadElectricityPrices();
     
