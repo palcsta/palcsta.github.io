@@ -726,14 +726,15 @@ async function loadElectricityPrices() {
             return now >= start && now <= end;
         });
 
-        // Determine which 48 points to show
-        let startIndex = 0;
+        // Determine which 48 points to show (Current as leftmost)
+        let sliceStart = 0;
+        let sliceEnd = currentIndex + 1;
         if (currentIndex !== -1) {
-            // Show 12 points (3h) of history and 36 points (9h) of future if possible
-            startIndex = Math.max(0, currentIndex - 36);
+            // We want 'currentIndex' to be the last element in the slice so it becomes leftmost after reverse
+            sliceStart = Math.max(0, currentIndex - 47);
         }
         
-        const recentPrices = data.prices.slice(startIndex, startIndex + 48).reverse();
+        const recentPrices = data.prices.slice(sliceStart, sliceEnd).reverse();
         const priceValues = recentPrices.map(p => p.price);
         
         const maxPrice = Math.max(...priceValues);
