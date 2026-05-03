@@ -506,17 +506,13 @@ async function fetchJson(url) {
 
 let cachedHnStories = null;
 
-async function loadHackerNewsPanel(forceRefresh = false) {
+async function loadHackerNewsPanel() {
     const list = document.getElementById("hn-story-list");
     const status = document.getElementById("hn-status");
     const sortBtn = document.getElementById("hn-sort-btn");
 
     if (!list || !status) {
         return;
-    }
-
-    if (forceRefresh) {
-        cachedHnStories = null;
     }
 
     const sortMode = sortBtn ? sortBtn.dataset.sort : "points";
@@ -575,28 +571,20 @@ async function loadHackerNewsPanel(forceRefresh = false) {
     }
 }
 
-function setupHnControls() {
+function setupHnSort() {
     const sortBtn = document.getElementById("hn-sort-btn");
-    const refreshBtn = document.getElementById("hn-refresh-btn");
+    if (!sortBtn) return;
 
-    if (sortBtn) {
-        sortBtn.addEventListener("click", () => {
-            if (sortBtn.dataset.sort === "top") {
-                sortBtn.dataset.sort = "points";
-                sortBtn.textContent = "Points";
-            } else {
-                sortBtn.dataset.sort = "top";
-                sortBtn.textContent = "Top";
-            }
-            loadHackerNewsPanel();
-        });
-    }
-
-    if (refreshBtn) {
-        refreshBtn.addEventListener("click", () => {
-            loadHackerNewsPanel(true);
-        });
-    }
+    sortBtn.addEventListener("click", () => {
+        if (sortBtn.dataset.sort === "top") {
+            sortBtn.dataset.sort = "points";
+            sortBtn.textContent = "Points";
+        } else {
+            sortBtn.dataset.sort = "top";
+            sortBtn.textContent = "Top";
+        }
+        loadHackerNewsPanel();
+    });
 }
 
 async function loadBlogPosts() {
@@ -677,7 +665,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupCopyButtons();
     loadBlogPosts();
     setupRevealAnimation();
-    setupHnControls();
+    setupHnSort();
     loadHackerNewsPanel();
     loadElectricityPrices();
     loadRandomQuote();

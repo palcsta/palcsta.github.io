@@ -248,18 +248,11 @@ body.dark-mode .topbar {
   min-height: 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 8px;
   margin-bottom: 16px;
 }
 
-.hn-panel-controls {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.hn-sort-btn, .hn-refresh-btn {
+.hn-sort-btn {
   background: var(--surface-strong);
   border: 1px solid var(--border);
   color: var(--muted);
@@ -275,13 +268,7 @@ body.dark-mode .topbar {
   box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 }
 
-.hn-refresh-btn {
-  padding: 4px 6px;
-  font-size: 0.8rem;
-  line-height: 1;
-}
-
-.hn-sort-btn:hover, .hn-refresh-btn:hover {
+.hn-sort-btn:hover {
   background: var(--accent-soft);
   color: var(--accent);
   border-color: var(--accent);
@@ -289,7 +276,7 @@ body.dark-mode .topbar {
   box-shadow: 0 4px 12px var(--accent-soft);
 }
 
-.hn-sort-btn:active, .hn-refresh-btn:active {
+.hn-sort-btn:active {
   transform: translateY(0);
 }
 
@@ -1912,12 +1899,21 @@ body.dark-mode .tab-button.active {
   transform: scaleY(1.05);
 }
 
+<<<<<<< HEAD
+=======
+.price-bar.is-current {
+  background: #c89d54;
+  opacity: 1;
+}
+
+>>>>>>> parent of d2324dd (Add refresh button to Hacker News panel and fix fetching/caching logic)
 .price-bar.is-negative {
-  background: transparent !important;
+  background: transparent;
   border: 1px dashed var(--accent);
   opacity: 0.4;
 }
 
+<<<<<<< HEAD
 .price-bar.is-current {
   background: #c89d54 !important;
   opacity: 1;
@@ -1932,6 +1928,8 @@ body.dark-mode .tab-button.active {
 .price-bar.price-purple { background: #8b5cf6; }
 .price-bar.price-blue { background: #3b82f6; }
 
+=======
+>>>>>>> parent of d2324dd (Add refresh button to Hacker News panel and fix fetching/caching logic)
 .weather-chart-row {
   display: flex;
   gap: 3px;
