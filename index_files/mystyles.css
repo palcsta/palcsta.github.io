@@ -1914,6 +1914,7 @@ body.dark-mode .tab-button.active {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .price-bar.is-current {
   background: #c89d54 !important;
   opacity: 1;
@@ -1928,6 +1929,8 @@ body.dark-mode .tab-button.active {
 .price-bar.price-purple { background: #8b5cf6; }
 .price-bar.price-blue { background: #3b82f6; }
 
+=======
+>>>>>>> parent of d2324dd (Add refresh button to Hacker News panel and fix fetching/caching logic)
 =======
 >>>>>>> parent of d2324dd (Add refresh button to Hacker News panel and fix fetching/caching logic)
 .weather-chart-row {
