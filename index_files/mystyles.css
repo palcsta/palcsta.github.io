@@ -1882,7 +1882,6 @@ body.dark-mode .tab-button.active {
   gap: 3px;
   height: 80px;
   padding-bottom: 4px;
-  position: relative;
 }
 
 .price-bar {
@@ -1899,25 +1898,16 @@ body.dark-mode .tab-button.active {
   transform: scaleY(1.05);
 }
 
+.price-bar.is-current {
+  background: #c89d54;
+  opacity: 1;
+}
+
 .price-bar.is-negative {
   background: transparent;
   border: 1px dashed var(--accent);
   opacity: 0.4;
 }
-
-.price-bar.is-current {
-  background: #c89d54 !important;
-  opacity: 1;
-  box-shadow: 0 0 12px rgba(200, 157, 84, 0.5);
-  z-index: 2;
-}
-
-.price-bar.price-green { background: #10b981; }
-.price-bar.price-yellow { background: #f59e0b; }
-.price-bar.price-orange { background: #f97316; }
-.price-bar.price-red { background: #ef4444; }
-.price-bar.price-purple { background: #8b5cf6; }
-.price-bar.price-blue { background: #3b82f6; }
 
 .weather-chart-row {
   display: flex;
@@ -1945,58 +1935,6 @@ body.dark-mode .tab-button.active {
   font-size: 0.55rem;
   font-weight: 800;
   color: var(--muted);
-}
-
-.quote-card {
-  padding: 24px;
-  margin-bottom: 24px;
-  background: var(--surface);
-  backdrop-filter: blur(14px);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-soft);
-  position: relative;
-  overflow: hidden;
-}
-
-.quote-card::before {
-  content: "“";
-  position: absolute;
-  top: -10px;
-  left: 10px;
-  font-size: 5rem;
-  font-family: serif;
-  color: var(--accent);
-  opacity: 0.1;
-  pointer-events: none;
-}
-
-.quote-content {
-  position: relative;
-  z-index: 1;
-}
-
-.quote-text {
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 1.05rem;
-  font-weight: 600;
-  line-height: 1.5;
-  color: var(--text);
-  margin-bottom: 12px;
-}
-
-.quote-author {
-  display: block;
-  font-size: 0.8rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--accent);
-  font-style: normal;
-}
-
-.quote-author::before {
-  content: "— ";
 }
 
 .price-chart-footer {
