@@ -1,8 +1,9 @@
 const fs = require('fs');
 const data = JSON.parse(fs.readFileSync('prices.json', 'utf8'));
 const now = new Date("2026-05-02T17:20:00.000Z");
+const prices = [...data.prices].sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
 
-const currentIndex = data.prices.findIndex(p => {
+const currentIndex = prices.findIndex(p => {
     const start = new Date(p.startDate);
     const end = new Date(p.endDate);
     return now >= start && now <= end;
@@ -10,23 +11,28 @@ const currentIndex = data.prices.findIndex(p => {
 
 console.log("Current Index:", currentIndex);
 if (currentIndex !== -1) {
-    console.log("Current Price Object:", data.prices[currentIndex]);
+    console.log("Current Price Object:", prices[currentIndex]);
 }
 
-let sliceEnd = Math.min(data.prices.length, currentIndex + 1);
-let sliceStart = Math.max(0, sliceEnd - 48);
+const upcomingPrices = prices.slice(0, currentIndex + 1).reverse().slice(0, 48);
 
-if (sliceEnd - sliceStart < 48 && sliceEnd < data.prices.length) {
-    sliceEnd = Math.min(data.prices.length, sliceStart + 48);
-}
+console.log("Upcoming count:", upcomingPrices.length);
+console.log("First price:", upcomingPrices[0]);
+console.log("Last price:", upcomingPrices[upcomingPrices.length - 1]);
 
-console.log("Slice:", sliceStart, "to", sliceEnd);
-
-const recentPrices = data.prices.slice(sliceStart, sliceEnd).reverse();
-const isFoundInSlice = recentPrices.some(p => {
+const isFoundInSlice = upcomingPrices.some(p => {
     const start = new Date(p.startDate);
     const end = new Date(p.endDate);
     return now >= start && now <= end;
 });
 
-console.log("Is current found in slice after reverse?", isFoundInSlice);
+const isCurrentLeftmost = upcomingPrices.length > 0
+    && now >= new Date(upcomingPrices[0].startDate)
+    && now <= new Date(upcomingPrices[0].endDate);
+const isAscending = upcomingPrices.every((p, index, prices) => {
+    return index === 0 || new Date(prices[index - 1].startDate) < new Date(p.startDate);
+});
+
+console.log("Is current found in slice?", isFoundInSlice);
+console.log("Is current leftmost?", isCurrentLeftmost);
+console.log("Is upcoming sequence ascending?", isAscending);

@@ -1899,22 +1899,12 @@ body.dark-mode .tab-button.active {
   transform: scaleY(1.05);
 }
 
-<<<<<<< HEAD
-=======
-.price-bar.is-current {
-  background: #c89d54;
-  opacity: 1;
-}
-
->>>>>>> parent of d2324dd (Add refresh button to Hacker News panel and fix fetching/caching logic)
 .price-bar.is-negative {
   background: transparent;
   border: 1px dashed var(--accent);
   opacity: 0.4;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 .price-bar.is-current {
   background: #c89d54 !important;
   opacity: 1;
@@ -1929,10 +1919,6 @@ body.dark-mode .tab-button.active {
 .price-bar.price-purple { background: #8b5cf6; }
 .price-bar.price-blue { background: #3b82f6; }
 
-=======
->>>>>>> parent of d2324dd (Add refresh button to Hacker News panel and fix fetching/caching logic)
-=======
->>>>>>> parent of d2324dd (Add refresh button to Hacker News panel and fix fetching/caching logic)
 .weather-chart-row {
   display: flex;
   gap: 3px;

@@ -709,8 +709,10 @@ async function loadElectricityPrices() {
 
         const now = new Date();
         
-        // Find current price index in the list (data is sorted newest first)
-        let currentIndex = data.prices.findIndex(p => {
+        // Normalize to newest-first. Upcoming prices are earlier indexes in this order.
+        const prices = [...data.prices].sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+
+        let currentIndex = prices.findIndex(p => {
             const start = new Date(p.startDate);
             const end = new Date(p.endDate);
             return now >= start && now <= end;
@@ -718,14 +720,14 @@ async function loadElectricityPrices() {
 
         // Robust fallback: If no exact match (e.g. slight data delay), find the most recent past price
         if (currentIndex === -1) {
-            currentIndex = data.prices.findIndex(p => new Date(p.startDate) <= now);
+            currentIndex = prices.findIndex(p => new Date(p.startDate) <= now);
         }
         
         // Final fallback to the very first item if still -1
         if (currentIndex === -1) currentIndex = 0;
 
         // Update the "top right" price display IMMEDIATELY before potentially slow weather fetch
-        const currentP = data.prices[currentIndex];
+        const currentP = prices[currentIndex];
         const startT = new Date(currentP.startDate);
         const endT = new Date(currentP.endDate);
         const timeStr = `${startT.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}–${endT.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}`;
@@ -743,22 +745,15 @@ async function loadElectricityPrices() {
             console.error("Weather fetch failed:", we);
         }
 
-        // Determine which 48 points to show (12 hours of 15min data)
-        // data.prices is newest-first (descending time).
-        // Slice starting from currentIndex (current time) to currentIndex + 48 (12 hours forward/past).
-        // Since data is newest-first, index 0 is the newest.
-        let sliceStart = currentIndex;
-        let sliceEnd = Math.min(data.prices.length, sliceStart + 48);
-        
-        // Remove .reverse() so the leftmost bar is the newest (current) price.
-        const recentPrices = data.prices.slice(sliceStart, sliceEnd);
-        const priceValues = recentPrices.map(p => p.price);
+        // Show the current 15-minute price at the left, followed by upcoming prices.
+        const upcomingPrices = prices.slice(0, currentIndex + 1).reverse().slice(0, 48);
+        const priceValues = upcomingPrices.map(p => p.price);
         
         const maxPrice = Math.max(...priceValues);
         const minPrice = Math.min(...priceValues);
         const range = (maxPrice - minPrice) || 1;
         
-        const barsHtml = recentPrices.map(p => {
+        const barsHtml = upcomingPrices.map(p => {
             const start = new Date(p.startDate);
             const end = new Date(p.endDate);
             // Re-calculate isCurrent for each bar in the slice
@@ -782,7 +777,7 @@ async function loadElectricityPrices() {
             `;
         }).join("");
 
-        const markersHtml = recentPrices.map((p, index) => {
+        const markersHtml = upcomingPrices.map((p, index) => {
             const start = new Date(p.startDate);
             // Every hour starts with :00.
             if (start.getMinutes() === 0) {
@@ -790,7 +785,7 @@ async function loadElectricityPrices() {
                 // Since bars are flex: 1, calculating exact percentage is tricky with gaps.
                 // We'll use a CSS-calc based on the number of bars.
                 return `
-                    <div class="price-hour-marker" style="left: calc(${index} * (100% / ${recentPrices.length}))">
+                    <div class="price-hour-marker" style="left: calc(${index} * (100% / ${upcomingPrices.length}))">
                         <span class="price-hour-label">${start.getHours()}</span>
                     </div>
                 `;
@@ -799,7 +794,7 @@ async function loadElectricityPrices() {
         }).join("");
 
         if (weatherRow && weatherData) {
-            weatherRow.innerHTML = recentPrices.map(p => {
+            weatherRow.innerHTML = upcomingPrices.map(p => {
                 const start = new Date(p.startDate);
                 if (start.getMinutes() === 0) {
                     const year = start.getFullYear();
