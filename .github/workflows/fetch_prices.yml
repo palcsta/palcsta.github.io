@@ -1,7 +1,7 @@
 name: Fetch Electricity Prices
 on:
   schedule:
-    - cron: '0 13 * * *'
+    - cron: '7 * * * *'
   workflow_dispatch:
 
 permissions:
