@@ -751,7 +751,7 @@ async function loadElectricityPrices() {
         // Fetch weather for Oitti, Hausjärvi (60.785, 24.832)
         let weatherData = null;
         try {
-            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=60.785&longitude=24.832&hourly=temperature_2m,weathercode&timezone=${encodeURIComponent(priceTimeZone)}&forecast_days=2`);
+            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=60.785&longitude=24.832&hourly=temperature_2m,weathercode,wind_speed_10m&wind_speed_unit=ms&timezone=${encodeURIComponent(priceTimeZone)}&forecast_days=2`);
             if (weatherRes.ok) {
                 weatherData = await weatherRes.json();
             }
@@ -806,10 +806,12 @@ async function loadElectricityPrices() {
                     if (wIndex !== -1) {
                         const temp = weatherData.hourly.temperature_2m[wIndex];
                         const code = weatherData.hourly.weathercode[wIndex];
+                        const wind = weatherData.hourly.wind_speed_10m[wIndex];
                         return `
                             <div class="weather-item">
                                 <span class="weather-icon" title="Weather code: ${code}">${getWeatherIcon(code)}</span>
                                 <span class="weather-temp">${Math.round(temp)}°</span>
+                                <span class="weather-wind">${Math.round(wind)}</span>
                             </div>
                         `;
                     }

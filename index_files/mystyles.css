@@ -1937,6 +1937,12 @@ body.dark-mode .tab-button.active {
   color: var(--muted);
 }
 
+.weather-wind {
+  font-size: 0.45rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
 .price-chart-footer {
   display: flex;
   justify-content: space-between;
