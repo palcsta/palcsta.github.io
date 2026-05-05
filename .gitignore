@@ -13,3 +13,6 @@ SuoritusotePalchyk.pdf
 # OS
 .DS_Store
 Thumbs.db
+
+.gemini/
+gha-creds-*.json
