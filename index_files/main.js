@@ -657,13 +657,35 @@ async function loadBlogPosts() {
     }
 }
 
+async function loadRandomQuote() {
+    const container = document.getElementById("quote-container");
+    const textEl = document.getElementById("quote-text");
+    const authorEl = document.getElementById("quote-author");
+    if (!container || !textEl || !authorEl) return;
+
+    try {
+        const response = await fetch("./holy_quotes.json");
+        if (!response.ok) throw new Error("Quotes not available");
+        const quotes = await response.json();
+        
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        textEl.textContent = `“${randomQuote.quote}”`;
+        authorEl.textContent = randomQuote.author;
+        
+        setupRevealAnimation(container);
+    } catch (error) {
+        console.error("Failed to load quotes:", error);
+        container.style.display = "none";
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const theme = getPreferredTheme();
     setTheme(theme);
     updateSessionInsights();
     setupTabs();
     setupCopyButtons();
-    loadBlogPosts();
+    loadRandomQuote();
     setupRevealAnimation();
     setupHnSort();
     loadHackerNewsPanel();

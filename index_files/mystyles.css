@@ -2002,6 +2002,38 @@ body.dark-mode .tab-button.active {
   z-index: 1;
 }
 
+.quote-card {
+  padding: 42px;
+  border-radius: calc(var(--radius) + 8px);
+  background:
+    radial-gradient(circle at top left, rgba(200, 157, 84, 0.16), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(15, 118, 110, 0.16), transparent 34%),
+    var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-top: 12px;
+}
+
+.quote-text {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  color: var(--text);
+}
+
+.quote-author {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--muted);
+  font-style: normal;
+}
+
 .price-max-line span {
   position: absolute;
   right: 0;
