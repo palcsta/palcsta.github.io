@@ -176,6 +176,41 @@ body.dark-mode .topbar {
   color: #f7fffe;
 }
 
+.navbar .nav-ukraine {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 0.96rem;
+  font-weight: 700;
+  text-decoration: none;
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  color: var(--text);
+  transition: all var(--transition);
+}
+
+.navbar .nav-ukraine img {
+  width: 20px;
+  height: auto;
+  border-radius: 2px;
+}
+
+.navbar .nav-ukraine:hover,
+.navbar .nav-ukraine:focus-visible {
+  background: linear-gradient(180deg, #0057b7 50%, #ffd700 50%);
+  color: #fff !important;
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 87, 183, 0.2);
+}
+
+body.dark-mode .navbar .nav-ukraine:hover,
+body.dark-mode .navbar .nav-ukraine:focus-visible {
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.15);
+}
+
 .navbar .nav-live:hover,
 .navbar .nav-live:focus-visible {
   background: var(--accent-strong);
