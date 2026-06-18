@@ -657,6 +657,8 @@ async function loadBlogPosts() {
     }
 }
 
+let _quotesCache = null;
+
 async function loadRandomQuote() {
     const container = document.getElementById("quote-container");
     const textEl = document.getElementById("quote-text");
@@ -664,11 +666,13 @@ async function loadRandomQuote() {
     if (!container || !textEl || !authorEl) return;
 
     try {
-        const response = await fetch("./holy_quotes.json");
-        if (!response.ok) throw new Error("Quotes not available");
-        const quotes = await response.json();
-        
-        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        if (!_quotesCache) {
+            const response = await fetch("./holy_quotes.json");
+            if (!response.ok) throw new Error("Quotes not available");
+            _quotesCache = await response.json();
+        }
+
+        const randomQuote = _quotesCache[Math.floor(Math.random() * _quotesCache.length)];
         textEl.textContent = `“${randomQuote.quote}”`;
         authorEl.textContent = randomQuote.author;
         
@@ -690,9 +694,17 @@ document.addEventListener("DOMContentLoaded", () => {
     setupHnSort();
     loadHackerNewsPanel();
     loadElectricityPrices();
+
+    document.getElementById("quote-refresh-btn")?.addEventListener("click", async (e) => {
+        const btn = e.currentTarget;
+        btn.classList.add("spinning");
+        await loadRandomQuote();
+        btn.classList.remove("spinning");
+    });
     
     // Refresh electricity prices every minute to catch interval changes
     setInterval(loadElectricityPrices, 60000);
+
 
     document.getElementById("darkModeToggle")?.addEventListener("click", () => {
         const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";

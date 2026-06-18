@@ -2034,6 +2034,50 @@ body.dark-mode .tab-button.active {
   font-style: normal;
 }
 
+.quote-refresh-btn {
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border: 1px solid rgba(200, 157, 84, 0.45);
+  border-radius: 999px;
+  background: rgba(200, 157, 84, 0.08);
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.quote-refresh-btn svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  transition: transform 0.4s ease;
+}
+
+.quote-refresh-btn:hover {
+  background: rgba(200, 157, 84, 0.18);
+  color: var(--text);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(200, 157, 84, 0.2);
+}
+
+.quote-refresh-btn:active {
+  transform: translateY(0);
+}
+
+@keyframes spin-once {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.quote-refresh-btn.spinning svg {
+  animation: spin-once 0.5s ease-in-out;
+}
+
+
 .price-max-line span {
   position: absolute;
   right: 0;
