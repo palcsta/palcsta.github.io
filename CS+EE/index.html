@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIT OCW EE+CS Roadmap | Stanislav Pal'chyk</title>
+    <link rel="stylesheet" href="../index_files/mystyles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .roadmap-card {
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 24px;
+            box-shadow: var(--shadow-soft);
+            transition: all var(--transition);
+        }
+        .roadmap-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            border-color: var(--accent);
+        }
+        .roadmap-card h3 {
+            margin-top: 0;
+            color: var(--accent);
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 1.3rem;
+            border-bottom: 2px solid var(--accent-soft);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+        }
+        .roadmap-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .roadmap-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .roadmap-list li:last-child {
+            border-bottom: none;
+        }
+        .course-number {
+            font-weight: 700;
+            font-family: monospace;
+            background: var(--accent-soft);
+            color: var(--accent-strong);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+        .star-priority {
+            color: #d97706;
+            font-weight: bold;
+            margin-left: 6px;
+        }
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .tag-badge {
+            background: var(--surface-strong);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 99px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .order-flow {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            background: var(--surface);
+            padding: 20px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 40px;
+        }
+        .order-step {
+            background: var(--surface-strong);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: var(--shadow-soft);
+        }
+        .order-arrow {
+            color: var(--muted);
+            font-weight: 800;
+        }
+        .priority-box {
+            background: linear-gradient(135deg, var(--accent-soft), transparent);
+            border: 1px dashed var(--accent);
+            border-radius: var(--radius-sm);
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+        .priority-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .priority-item {
+            background: var(--surface-strong);
+            border: 1px solid var(--border);
+            padding: 14px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-shell">
+    <header class="topbar animate__animated animate__fadeInDown">
+        <a class="brand" href="../index.html">
+            <span class="brand-mark">
+                <img src="../index_files/avatars-000124677399-oddhlb-t500x500.jpg" alt="Stanislav Pal'chyk logo portrait">
+            </span>
+            <span class="brand-text">Stanislav Pal'chyk</span>
+        </a>
+
+        <nav class="navbar" aria-label="Primary navigation">
+            <a href="../index.html">🏠 Home</a>
+            <a href="../web-cv.html">Web-CV</a>
+            <a class="nav-live" href="index.html">CS+EE</a>
+            <a class="nav-github" href="https://github.com/palcsta" target="_blank" rel="noreferrer" aria-label="GitHub profile">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.38 7.86 10.9.58.1.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.78 1.2 1.78 1.2 1.03 1.77 2.7 1.26 3.36.97.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.27 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.16 1.18a10.95 10.95 0 0 1 5.75 0c2.19-1.49 3.16-1.18 3.16-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.08 0 4.41-2.69 5.39-5.25 5.68.41.35.77 1.03.77 2.08 0 1.5-.01 2.71-.01 3.08 0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/>
+                </svg>
+                <span>GitHub</span>
+            </a>
+        </nav>
+
+        <button id="darkModeToggle" class="dark-mode-toggle" type="button" aria-label="Toggle theme">🌙</button>
+    </header>
+
+    <main class="container animate__animated animate__fadeIn">
+        <section style="margin-bottom: 40px; text-align: center;">
+            <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; margin-bottom: 8px;">MIT OpenCourseWare Roadmap (EE + CS)</h1>
+            <p style="color: var(--muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto;">
+                A comprehensive curriculum overview bridging Computer Science and Electrical Engineering based on MIT's public courseware.
+            </p>
+        </section>
+
+        <!-- Highest Priority Courses -->
+        <section class="priority-box">
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-top: 0; color: var(--accent-strong);">⭐ Highest Priority Courses</h2>
+            <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 0;">These core topics form the theoretical and practical foundation for both disciplines.</p>
+            <div class="priority-list">
+                <div class="priority-item">
+                    <span class="course-number">18.06</span>
+                    <strong>Linear Algebra</strong>
+                </div>
+                <div class="priority-item">
+                    <span class="course-number">8.02</span>
+                    <strong>Electricity and Magnetism</strong>
+                </div>
+                <div class="priority-item">
+                    <span class="course-number">6.002</span>
+                    <strong>Circuits and Electronics</strong>
+                </div>
+                <div class="priority-item">
+                    <span class="course-number">6.042J</span>
+                    <strong>Math for Computer Science</strong>
+                </div>
+                <div class="priority-item">
+                    <span class="course-number">6.006</span>
+                    <strong>Introduction to Algorithms</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Roadmap Grid -->
+        <div class="roadmap-grid">
+            <!-- Mathematics -->
+            <div class="roadmap-card">
+                <h3>1. Mathematics</h3>
+                <ul class="roadmap-list">
+                    <li><span>Single Variable Calculus</span> <span class="course-number">18.01</span></li>
+                    <li><span>Multivariable Calculus</span> <span class="course-number">18.02</span></li>
+                    <li><span>Linear Algebra <span class="star-priority">⭐</span></span> <span class="course-number">18.06</span></li>
+                    <li><span>Intro to Probability</span> <span class="course-number">6.041 / 18.05</span></li>
+                </ul>
+            </div>
+
+            <!-- Physics -->
+            <div class="roadmap-card">
+                <h3>2. Physics</h3>
+                <ul class="roadmap-list">
+                    <li><span>Classical Mechanics</span> <span class="course-number">8.01</span></li>
+                    <li><span>Electricity & Magnetism <span class="star-priority">⭐</span></span> <span class="course-number">8.02</span></li>
+                </ul>
+            </div>
+
+            <!-- Computer Science -->
+            <div class="roadmap-card">
+                <h3>3. Computer Science</h3>
+                <ul class="roadmap-list">
+                    <li><span>Intro to Computer Science</span> <span class="course-number">6.0001</span></li>
+                    <li><span>Computational Thinking</span> <span class="course-number">6.0002</span></li>
+                    <li><span>Math for CS <span class="star-priority">⭐</span></span> <span class="course-number">6.042J</span></li>
+                    <li><span>Intro to Algorithms</span> <span class="course-number">6.006</span></li>
+                    <li><span>Computer System Eng.</span> <span class="course-number">6.033</span></li>
+                    <li><span>Operating System Eng.</span> <span class="course-number">6.828</span></li>
+                </ul>
+            </div>
+
+            <!-- Electrical Engineering -->
+            <div class="roadmap-card">
+                <h3>4. Electrical Engineering</h3>
+                <ul class="roadmap-list">
+                    <li><span>Circuits & Electronics <span class="star-priority">⭐</span></span> <span class="course-number">6.002</span></li>
+                    <li><span>Signals and Systems</span> <span class="course-number">6.003</span></li>
+                    <li><span>Digital Systems Lab</span> <span class="course-number">6.111</span></li>
+                    <li><span>Microelectronic Devices</span> <span class="course-number">6.012</span></li>
+                    <li><span>Electromagnetics & App.</span> <span class="course-number">6.013</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Specializations -->
+        <section style="margin-bottom: 40px;">
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; margin-bottom: 12px;">5. Specializations</h2>
+            <p style="color: var(--muted); margin-bottom: 16px;">Tailor the upper-level tracks depending on your specific research or professional interests:</p>
+            <div class="tag-list">
+                <span class="tag-badge">🤖 Artificial Intelligence</span>
+                <span class="tag-badge">🧠 Machine Learning</span>
+                <span class="tag-badge">🖥️ Computer Architecture</span>
+                <span class="tag-badge">🔧 Embedded Systems</span>
+                <span class="tag-badge">📡 Communications</span>
+                <span class="tag-badge">⚡ Power Electronics</span>
+                <span class="tag-badge">📶 Control Systems</span>
+                <span class="tag-badge">🔒 Cryptography</span>
+                <span class="tag-badge">🧮 Signal Processing</span>
+            </div>
+        </section>
+
+        <!-- Suggested Order -->
+        <section style="margin-bottom: 40px;">
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; margin-bottom: 16px;">Suggested Order of Study</h2>
+            <div class="order-flow">
+                <span class="order-step">Math</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step">Physics</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step">Programming</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step">Circuits</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step">Digital Logic</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step">Computer Architecture</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step">Operating Systems</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step">Algorithms</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step">Signals & Systems</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step">Embedded Systems</span>
+                <span class="order-arrow">→</span>
+                <span class="order-step">Specialization</span>
+            </div>
+        </section>
+
+        <!-- Recommended Books -->
+        <section style="margin-bottom: 40px;">
+            <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; margin-bottom: 20px;">Recommended Reference Books</h2>
+            <div class="roadmap-grid">
+                <!-- Math Books -->
+                <div class="roadmap-card">
+                    <h3>Mathematics</h3>
+                    <ul class="roadmap-list">
+                        <li><span><em>Calculus</em></span> <span style="font-size: 0.9rem; color: var(--muted);">James Stewart</span></li>
+                        <li><span><em>Intro to Linear Algebra</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Gilbert Strang</span></li>
+                        <li><span><em>Math for Computer Science</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Lehman, Leighton & Meyer</span></li>
+                    </ul>
+                </div>
+                <!-- Physics Books -->
+                <div class="roadmap-card">
+                    <h3>Physics</h3>
+                    <ul class="roadmap-list">
+                        <li><span><em>University Physics</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Young & Freedman</span></li>
+                        <li><span><em>Intro to Electrodynamics</em></span> <span style="font-size: 0.9rem; color: var(--muted);">David J. Griffiths</span></li>
+                    </ul>
+                </div>
+                <!-- EE Books -->
+                <div class="roadmap-card">
+                    <h3>Electrical Engineering</h3>
+                    <ul class="roadmap-list">
+                        <li><span><em>The Art of Electronics</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Horowitz & Hill</span></li>
+                        <li><span><em>Microelectronic Circuits</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Sedra & Smith</span></li>
+                    </ul>
+                </div>
+                <!-- CS Books -->
+                <div class="roadmap-card">
+                    <h3>Computer Science</h3>
+                    <ul class="roadmap-list">
+                        <li><span><em>Computer Systems: APP</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Bryant & O'Hallaron</span></li>
+                        <li><span><em>Intro to Algorithms</em></span> <span style="font-size: 0.9rem; color: var(--muted);">CLRS</span></li>
+                        <li><span><em>Operating Systems: OSTEP</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Arpaci-Dusseau</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-copy">
+            <p>Stanislav Pal'chyk</p>
+            <p>MIT OpenCourseWare Roadmap (EE + CS)</p>
+        </div>
+        <div class="footer-links">
+            <a href="../index.html">AI homepage</a>
+            <a href="../web-cv.html">Web-CV</a>
+            <a href="https://github.com/palcsta" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.cs.helsinki.fi/u/palchyk/" target="_blank" rel="noreferrer">University profile</a>
+        </div>
+    </footer>
+</div>
+
+<script src="../index_files/main.js"></script>
+</body>
+</html>
