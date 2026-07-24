@@ -45,14 +45,28 @@
             margin: 0;
         }
         .roadmap-list li {
-            padding: 10px 0;
+            padding: 0;
             border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
         }
         .roadmap-list li:last-child {
             border-bottom: none;
+        }
+        .roadmap-list li a {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-decoration: none;
+            color: inherit;
+            transition: color var(--transition);
+        }
+        .roadmap-list li a:hover {
+            color: var(--accent);
+        }
+        .roadmap-list li a:hover .course-number {
+            background: var(--accent);
+            color: #fff;
         }
         .course-number {
             font-weight: 700;
@@ -62,6 +76,7 @@
             padding: 2px 8px;
             border-radius: 6px;
             font-size: 0.9rem;
+            transition: background var(--transition), color var(--transition);
         }
         .star-priority {
             color: #d97706;
@@ -130,6 +145,14 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
+            text-decoration: none;
+            color: inherit;
+            transition: all var(--transition);
+        }
+        .priority-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow);
         }
     </style>
 </head>
@@ -163,7 +186,7 @@
         <section style="margin-bottom: 40px; text-align: center;">
             <h1 style="font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; margin-bottom: 8px;">MIT OpenCourseWare Roadmap (EE + CS)</h1>
             <p style="color: var(--muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto;">
-                A comprehensive curriculum overview bridging Computer Science and Electrical Engineering based on MIT's public courseware.
+                A comprehensive curriculum overview bridging Computer Science and Electrical Engineering based on MIT's public courseware. Click any course to view its official MIT materials.
             </p>
         </section>
 
@@ -172,26 +195,26 @@
             <h2 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; margin-top: 0; color: var(--accent-strong);">⭐ Highest Priority Courses</h2>
             <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 0;">These core topics form the theoretical and practical foundation for both disciplines.</p>
             <div class="priority-list">
-                <div class="priority-item">
+                <a class="priority-item" href="https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/" target="_blank" rel="noopener noreferrer">
                     <span class="course-number">18.06</span>
                     <strong>Linear Algebra</strong>
-                </div>
-                <div class="priority-item">
+                </a>
+                <a class="priority-item" href="https://ocw.mit.edu/courses/8-02-physics-ii-electricity-and-magnetism-fall-2007/" target="_blank" rel="noopener noreferrer">
                     <span class="course-number">8.02</span>
                     <strong>Electricity and Magnetism</strong>
-                </div>
-                <div class="priority-item">
+                </a>
+                <a class="priority-item" href="https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/" target="_blank" rel="noopener noreferrer">
                     <span class="course-number">6.002</span>
                     <strong>Circuits and Electronics</strong>
-                </div>
-                <div class="priority-item">
+                </a>
+                <a class="priority-item" href="https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/" target="_blank" rel="noopener noreferrer">
                     <span class="course-number">6.042J</span>
                     <strong>Math for Computer Science</strong>
-                </div>
-                <div class="priority-item">
+                </a>
+                <a class="priority-item" href="https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/" target="_blank" rel="noopener noreferrer">
                     <span class="course-number">6.006</span>
                     <strong>Introduction to Algorithms</strong>
-                </div>
+                </a>
             </div>
         </section>
 
@@ -201,10 +224,30 @@
             <div class="roadmap-card">
                 <h3>1. Mathematics</h3>
                 <ul class="roadmap-list">
-                    <li><span>Single Variable Calculus</span> <span class="course-number">18.01</span></li>
-                    <li><span>Multivariable Calculus</span> <span class="course-number">18.02</span></li>
-                    <li><span>Linear Algebra <span class="star-priority">⭐</span></span> <span class="course-number">18.06</span></li>
-                    <li><span>Intro to Probability</span> <span class="course-number">6.041 / 18.05</span></li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/" target="_blank" rel="noopener noreferrer">
+                            <span>Single Variable Calculus</span>
+                            <span class="course-number">18.01</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/" target="_blank" rel="noopener noreferrer">
+                            <span>Multivariable Calculus</span>
+                            <span class="course-number">18.02</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/" target="_blank" rel="noopener noreferrer">
+                            <span>Linear Algebra <span class="star-priority">⭐</span></span>
+                            <span class="course-number">18.06</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/6-041sc-probabilistic-systems-analysis-and-applied-probability-fall-2013/" target="_blank" rel="noopener noreferrer">
+                            <span>Intro to Probability</span>
+                            <span class="course-number">6.041 / 18.05</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
 
@@ -212,8 +255,18 @@
             <div class="roadmap-card">
                 <h3>2. Physics</h3>
                 <ul class="roadmap-list">
-                    <li><span>Classical Mechanics</span> <span class="course-number">8.01</span></li>
-                    <li><span>Electricity & Magnetism <span class="star-priority">⭐</span></span> <span class="course-number">8.02</span></li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/8-01sc-classical-mechanics-fall-2016/" target="_blank" rel="noopener noreferrer">
+                            <span>Classical Mechanics</span>
+                            <span class="course-number">8.01</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/8-02-physics-ii-electricity-and-magnetism-fall-2007/" target="_blank" rel="noopener noreferrer">
+                            <span>Electricity & Magnetism <span class="star-priority">⭐</span></span>
+                            <span class="course-number">8.02</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
 
@@ -221,12 +274,42 @@
             <div class="roadmap-card">
                 <h3>3. Computer Science</h3>
                 <ul class="roadmap-list">
-                    <li><span>Intro to Computer Science</span> <span class="course-number">6.0001</span></li>
-                    <li><span>Computational Thinking</span> <span class="course-number">6.0002</span></li>
-                    <li><span>Math for CS <span class="star-priority">⭐</span></span> <span class="course-number">6.042J</span></li>
-                    <li><span>Intro to Algorithms</span> <span class="course-number">6.006</span></li>
-                    <li><span>Computer System Eng.</span> <span class="course-number">6.033</span></li>
-                    <li><span>Operating System Eng.</span> <span class="course-number">6.828</span></li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/" target="_blank" rel="noopener noreferrer">
+                            <span>Intro to Computer Science</span>
+                            <span class="course-number">6.0001</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/6-0002-introduction-to-computational-thinking-and-data-science-fall-2016/" target="_blank" rel="noopener noreferrer">
+                            <span>Computational Thinking</span>
+                            <span class="course-number">6.0002</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-fall-2010/" target="_blank" rel="noopener noreferrer">
+                            <span>Math for CS <span class="star-priority">⭐</span></span>
+                            <span class="course-number">6.042J</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/" target="_blank" rel="noopener noreferrer">
+                            <span>Intro to Algorithms</span>
+                            <span class="course-number">6.006</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/6-033-computer-system-engineering-spring-2018/" target="_blank" rel="noopener noreferrer">
+                            <span>Computer System Eng.</span>
+                            <span class="course-number">6.033</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/6-828-operating-system-engineering-fall-2012/" target="_blank" rel="noopener noreferrer">
+                            <span>Operating System Eng.</span>
+                            <span class="course-number">6.828</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
 
@@ -234,11 +317,36 @@
             <div class="roadmap-card">
                 <h3>4. Electrical Engineering</h3>
                 <ul class="roadmap-list">
-                    <li><span>Circuits & Electronics <span class="star-priority">⭐</span></span> <span class="course-number">6.002</span></li>
-                    <li><span>Signals and Systems</span> <span class="course-number">6.003</span></li>
-                    <li><span>Digital Systems Lab</span> <span class="course-number">6.111</span></li>
-                    <li><span>Microelectronic Devices</span> <span class="course-number">6.012</span></li>
-                    <li><span>Electromagnetics & App.</span> <span class="course-number">6.013</span></li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/" target="_blank" rel="noopener noreferrer">
+                            <span>Circuits & Electronics <span class="star-priority">⭐</span></span>
+                            <span class="course-number">6.002</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/6-003-signals-and-systems-fall-2011/" target="_blank" rel="noopener noreferrer">
+                            <span>Signals and Systems</span>
+                            <span class="course-number">6.003</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/6-111-introductory-digital-systems-laboratory-spring-2006/" target="_blank" rel="noopener noreferrer">
+                            <span>Digital Systems Lab</span>
+                            <span class="course-number">6.111</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/6-012-microelectronic-devices-and-circuits-fall-2009/" target="_blank" rel="noopener noreferrer">
+                            <span>Microelectronic Devices</span>
+                            <span class="course-number">6.012</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://ocw.mit.edu/courses/6-013-electromagnetics-and-applications-fall-2005/" target="_blank" rel="noopener noreferrer">
+                            <span>Electromagnetics & App.</span>
+                            <span class="course-number">6.013</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -296,34 +404,34 @@
                 <div class="roadmap-card">
                     <h3>Mathematics</h3>
                     <ul class="roadmap-list">
-                        <li><span><em>Calculus</em></span> <span style="font-size: 0.9rem; color: var(--muted);">James Stewart</span></li>
-                        <li><span><em>Intro to Linear Algebra</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Gilbert Strang</span></li>
-                        <li><span><em>Math for Computer Science</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Lehman, Leighton & Meyer</span></li>
+                        <li><a href="https://www.google.com/search?q=Calculus+James+Stewart" target="_blank" rel="noopener noreferrer"><span><em>Calculus</em></span> <span style="font-size: 0.9rem; color: var(--muted);">James Stewart</span></a></li>
+                        <li><a href="https://www.google.com/search?q=Introduction+to+Linear+Algebra+Gilbert+Strang" target="_blank" rel="noopener noreferrer"><span><em>Intro to Linear Algebra</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Gilbert Strang</span></a></li>
+                        <li><a href="https://www.google.com/search?q=Mathematics+for+Computer+Science+Lehman+Leighton+Meyer" target="_blank" rel="noopener noreferrer"><span><em>Math for Computer Science</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Lehman, Leighton & Meyer</span></a></li>
                     </ul>
                 </div>
                 <!-- Physics Books -->
                 <div class="roadmap-card">
                     <h3>Physics</h3>
                     <ul class="roadmap-list">
-                        <li><span><em>University Physics</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Young & Freedman</span></li>
-                        <li><span><em>Intro to Electrodynamics</em></span> <span style="font-size: 0.9rem; color: var(--muted);">David J. Griffiths</span></li>
+                        <li><a href="https://www.google.com/search?q=University+Physics+Young+Freedman" target="_blank" rel="noopener noreferrer"><span><em>University Physics</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Young & Freedman</span></a></li>
+                        <li><a href="https://www.google.com/search?q=Introduction+to+Electrodynamics+David+J.+Griffiths" target="_blank" rel="noopener noreferrer"><span><em>Intro to Electrodynamics</em></span> <span style="font-size: 0.9rem; color: var(--muted);">David J. Griffiths</span></a></li>
                     </ul>
                 </div>
                 <!-- EE Books -->
                 <div class="roadmap-card">
                     <h3>Electrical Engineering</h3>
                     <ul class="roadmap-list">
-                        <li><span><em>The Art of Electronics</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Horowitz & Hill</span></li>
-                        <li><span><em>Microelectronic Circuits</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Sedra & Smith</span></li>
+                        <li><a href="https://www.google.com/search?q=The+Art+of+Electronics+Horowitz+Hill" target="_blank" rel="noopener noreferrer"><span><em>The Art of Electronics</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Horowitz & Hill</span></a></li>
+                        <li><a href="https://www.google.com/search?q=Microelectronic+Circuits+Sedra+Smith" target="_blank" rel="noopener noreferrer"><span><em>Microelectronic Circuits</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Sedra & Smith</span></a></li>
                     </ul>
                 </div>
                 <!-- CS Books -->
                 <div class="roadmap-card">
                     <h3>Computer Science</h3>
                     <ul class="roadmap-list">
-                        <li><span><em>Computer Systems: APP</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Bryant & O'Hallaron</span></li>
-                        <li><span><em>Intro to Algorithms</em></span> <span style="font-size: 0.9rem; color: var(--muted);">CLRS</span></li>
-                        <li><span><em>Operating Systems: OSTEP</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Arpaci-Dusseau</span></li>
+                        <li><a href="https://www.google.com/search?q=Computer+Systems+A+Programmer%27s+Perspective+Bryant+OHallaron" target="_blank" rel="noopener noreferrer"><span><em>Computer Systems: APP</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Bryant & O'Hallaron</span></a></li>
+                        <li><a href="https://www.google.com/search?q=Introduction+to+Algorithms+CLRS" target="_blank" rel="noopener noreferrer"><span><em>Intro to Algorithms</em></span> <span style="font-size: 0.9rem; color: var(--muted);">CLRS</span></a></li>
+                        <li><a href="https://www.google.com/search?q=Operating+Systems+Three+Easy+Pieces+Arpaci-Dusseau" target="_blank" rel="noopener noreferrer"><span><em>Operating Systems: OSTEP</em></span> <span style="font-size: 0.9rem; color: var(--muted);">Arpaci-Dusseau</span></a></li>
                     </ul>
                 </div>
             </div>
